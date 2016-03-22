@@ -96,8 +96,9 @@ var app = angular
 
 app.controller('contactoController' , function($scope, $http){
   $scope.validar = function(){
-    $http.post('/api/post', $scope.formData)
+    $http.post('/upload', $scope.formData)
             .success(function(data) {
+              alert($scope.formData.image)
                 $scope.formData = {}; // clear the form so our user is ready to enter another
                 $scope.todos = data;
                 console.log(data);
