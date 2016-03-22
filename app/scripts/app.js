@@ -8,7 +8,7 @@
  *
  * Main module of the application.
  */
-angular
+var app = angular
   .module('faptoriaApp', [
     'ngAnimate',
     'ngAria',
@@ -21,6 +21,8 @@ angular
     'ui.router'
   ])
   .config(function ($routeProvider, $stateProvider) {
+
+    $routeProvider.otherwise({redirectTo : '/'});
 
     $stateProvider
     .state('/' , {
@@ -42,24 +44,67 @@ angular
          templateUrl : 'views/admin/admin.html'
       }
     }
+  })
+  .state('/moderar' , {
+    url : '/moderar' ,
+    views : {
+      'header1' : {
+        templateUrl : 'views/header.html'
+      },
+      'contenido' : {
+        templateUrl : 'views/moderar.html'
+      }
+    }
+  })
+  .state('/subir' , {
+    url : '/subir' ,
+    views : {
+      'header1' : {
+        templateUrl : 'views/header.html'
+      } ,
+      'contenido' : {
+        templateUrl : 'views/upload.html'
+      }
+    }
+  })
+  .state('/acerca' , {
+    url : '/acerca' ,
+    views : {
+      'header1' : {
+        templateUrl : 'views/header.html'
+      } ,
+      'contenido' : {
+        templateUrl : 'views/acerca.html'
+      }
+    }
+  })
+  .state('/contacto' , {
+    url : '/contacto' ,
+    views : {
+      'header1' : {
+        templateUrl : 'views/header.html'
+      } ,
+      'contenido' : {
+        templateUrl : 'views/contacto.html',
+        controller : 'contactoController'
+      }
+    }
   });
 
-  /*
-
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl',
-        controllerAs: 'about'
-      })
-      .when('/moderar', {
-        templateUrl: 'views/moderar.html',
-        controller: 'ModerarCtrl',
-        controllerAs: 'moderar'
-      })
-      .when('/admin', {
-        templateUrl: 'views/admin/admin.html',
-        controller: 'ModerarCtrl',
-        controllerAs: 'moderar'
-      })
-       */
   });
+
+
+app.controller('contactoController' , function($scope, $http){
+  $scope.validar = function(){
+    $http.post('/api/post', $scope.formData)
+            .success(function(data) {
+                $scope.formData = {}; // clear the form so our user is ready to enter another
+                $scope.todos = data;
+                console.log(data);
+            })
+            .error(function(data) {
+                console.log('Error: ' + data);
+            });
+
+  }
+})

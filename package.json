@@ -1,5 +1,5 @@
 {
-  "name": "Seduction Sexshop",
+  "name": "Seduction_Sexshop",
   "private": true,
   "devDependencies": {
     "autoprefixer-core": "^5.2.1",
@@ -33,6 +33,10 @@
     "node": ">=0.10.0"
   },
   "dependencies": {
-    "express": "^4.13.4"
+    "body-parser": "^1.15.0",
+    "express": "^4.13.4",
+    "mongojs": "^2.3.0",
+    "mongoose": "^4.4.5",
+    "morgan": "^1.7.0"
   }
 }
