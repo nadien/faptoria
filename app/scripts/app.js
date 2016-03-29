@@ -20,19 +20,20 @@ var app = angular
     'ngTouch',
     'ui.router'
   ])
-  .config(function ($routeProvider, $stateProvider) {
+  .config(function ($routeProvider, $stateProvider, $locationProvider) {
 
     $routeProvider.otherwise({redirectTo : '/'});
+    $locationProvider.html5Mode(true);
 
     $stateProvider
-    .state('/' , {
+   .state('/' , {
       url : '/' ,
       views : {
         'header1' : {
-          templateUrl : 'views/header.html'
+          templateUrl : '/views/header.html'
       },
       'contenido' : {
-        templateUrl : 'views/home.html',
+        templateUrl : '/views/home.html',
         controller : 'homeController'
       }
      }
@@ -63,7 +64,8 @@ var app = angular
         templateUrl : 'views/header.html'
       } ,
       'contenido' : {
-        templateUrl : 'views/upload.html'
+        templateUrl : 'views/upload.html',
+        controller : 'SubirCtrl'
       }
     }
   })
@@ -89,23 +91,38 @@ var app = angular
         controller : 'contactoController'
       }
     }
+  })
+  .state('/Entrar' , {
+    url : '/Entrar' ,
+    views : {
+      'header1' : {
+        templateUrl : 'views/header.html'
+      } ,
+      'contenido' : {
+        templateUrl : 'views/login/login.html',
+        controller : 'contactoController'
+      }
+    }
+  }).state('/registro' , {
+    url : '/registro' ,
+    views : {
+      'header1' : {
+        templateUrl : 'views/header.html'
+      } ,
+      'contenido' : {
+        templateUrl : 'views/login/signup.html',
+        controller : 'SignupCtrl'
+      }
+    }
   });
 
   });
 
 
-app.controller('contactoController' , function($scope, $http){
-  $scope.validar = function(){
-    $http.post('/upload', $scope.formData)
-            .success(function(data) {
-              alert($scope.formData.image)
-                $scope.formData = {}; // clear the form so our user is ready to enter another
-                $scope.todos = data;
-                console.log(data);
-            })
-            .error(function(data) {
-                console.log('Error: ' + data);
-            });
-
-  }
+app.controller('headerController' , function($scope, $http){
+  $scope.value = true;
+  if(false)
+  $scope.signOrLog = "Perfil"
+  else
+  $scope.signOrLog = "Entrar"
 })

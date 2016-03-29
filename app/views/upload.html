@@ -1,1 +1,20 @@
-<p> Estás en upload </p>
+<div id="upload" class="row">
+           <div class="col-sm-8 col-sm-offset-2 text-center">
+               <form>
+                   <div class="form-group">
+
+                       <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+                       <p>Subir imagen </p>
+                       <form name="form"  enctype='multipart/form-data'>
+
+                  </form>
+
+                   <form name="form" enctype='multipart/form-data' action="http://localhost:9999/api/photo" method="post">
+                   <input type='file' name='userPhoto' ng-model="image" accept=".png, .jpg, .jpeg"/>
+                   <input type="submit" value="Upload Image" name="submit">
+                   </form>
+                   <!-- createToDo() WILL CREATE NEW TODOS -->
+ </div>
+           </div>
+       </div>
+{{mensaje}}
