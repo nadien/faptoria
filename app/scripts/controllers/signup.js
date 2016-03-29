@@ -11,13 +11,15 @@ angular.module('faptoriaApp')
   .controller('SignupCtrl', function ($scope , $http) {
 
     $scope.signup = function(){
-    $http.post('/api/signup' , $scope.formSignup)
-    .success(function(data , headers ){
-      $scope.message = data;
-    })
-    .error(function(data){
-      $scope.mensaje = "falló la llamada al servidor";
-    });
+          $http.post('/api/signup' , $scope.formSignup)
+            .success(function(data , headers ){
+                $scope.message = data;
+            })
+            .error(function(data){
+                $scope.mensaje = "falló la llamada al servidor";
+              });
   }
+
+
 
   });

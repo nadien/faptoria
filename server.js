@@ -16,13 +16,11 @@ var express = require('express'),
     app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
     app.use(express.static(__dirname + '/app'));
     app.use('/bower_components',  express.static(__dirname + '/bower_components'));
- app.get('/*', function(req, res, next) {
-    // Just send the index.html for other files to support HTML5Mode
-    res.sendFile('/app/index.html', { root: __dirname });
-});
-  /*  app.get('*', function(req, res) {
-        res.sendfile('./app/index.html'); // load the single view file (angular will handle the page changes on the front-end)
-    }); */
+    app.get('/*', function(req, res, next) {
+      // Just send the index.html for other files to support HTML5Mode
+      res.sendFile('/app/index.html', { root: __dirname });
+    });
+
 
 //Iniciando el servidor de imagenes con Multer
 var storage	=	multer.diskStorage({
@@ -35,6 +33,20 @@ var storage	=	multer.diskStorage({
 });
 var upload = multer({ storage : storage}).single('userPhoto');
 
+
+
+//modelado de api variables
+var User = mongoose.model( 'User' , {
+  email : String ,
+  nick : String ,
+  pass : String ,
+  role : { type:Number, default:3}
+});
+
+
+
+
+
 app.post('/api/photo',function(req,res){
 	upload(req,res,function(err) {
 		if(err) {
@@ -44,26 +56,65 @@ app.post('/api/photo',function(req,res){
 	});
 });
 
-var User = mongoose.model( 'User' , {
-  email : String ,
-  nick : String ,
-  pass : String ,
-  role : { type:Number, default:3}
+
+
+// ************ All CRUDS methods will have only post *******************
+
+
+//get all users
+app.post('/api/users' , function(req , res){
+    User.find().lean().exec( function(err , user){
+      if(err)throw err;
+
+    //  res.end(user);
+      res.json(user);
+  })
 });
+
+
+//new user
 app.post('/api/signup' , function(req , res){
-   User.create({
+    User.create({
      email : req.body.email,
      nick : req.body.nick,
      pass : req.body.password
 
-  }, function(err , users){
-    if(err)throw err;
+    }, function(err , users){
+        if(err)
+          res.send(err);
 
-    res.json(users);
+      res.json(users);
   })
-
 });
 
+//delete a user
+app.delete('/api/delete_user/:id' , function(req , res){
+    User.remove({
+     _id : req.params.id
+    }, function(err , users){
+      if(err)
+        res.send(err);
+
+      res.end("Usuario eliminado con éxito");
+  })
+});
+
+//patch params on user
+app.put('/api/update_user/:id' , function(req , res){
+    User.findOneAndUpdate({
+      _id : req.params.id
+    },{$set : {
+     email : req.body.email,
+     nick : req.body.nick,
+     password : req.body.password
+    }
+  }, function(err , users){
+      if(err)
+        res.send(err);
+
+      res.end("Usuario actualizado con éxito");
+  })
+});
 
 app.listen(process.env.PORT || 9999 , function(port){
   console.log('Corriend en puerto 9999');
