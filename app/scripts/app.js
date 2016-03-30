@@ -35,6 +35,9 @@ var app = angular
       'contenido' : {
         templateUrl : '/views/home.html',
         controller : 'homeController'
+      },
+      'sidebar' : {
+        templateUrl : '/views/sidebar.html'
       }
      }
    })
@@ -42,7 +45,8 @@ var app = angular
      url : '/admin' ,
      views : {
        'admin' : {
-         templateUrl : 'views/admin/admin.html'
+         templateUrl : 'views/admin/admin.html',
+         controller : 'AdminCtrl'
       }
     }
   })
@@ -55,6 +59,21 @@ var app = angular
       'contenido' : {
         templateUrl : 'views/moderar.html'
       }
+    }
+  })
+  .state('/tablero/:id' , {
+     url : '/tablero/:id' ,
+     views : {
+       'header1' : {
+         templateUrl : '/views/header.html'
+     },
+     'contenido' : {
+       templateUrl : '/views/board.html',
+       controller : 'BoardCtrl'
+     },
+     'sidebar' : {
+       templateUrl : '/views/sidebar.html'
+     }
     }
   })
   .state('/subir' , {
@@ -100,7 +119,7 @@ var app = angular
       } ,
       'contenido' : {
         templateUrl : 'views/login/login.html',
-        controller : 'contactoController'
+        controller : 'LoginCtrl'
       }
     }
   }).state('/registro' , {

@@ -2,16 +2,15 @@
 
 /**
  * @ngdoc function
- * @name faptoriaApp.controller:SignupCtrl
+ * @name faptoriaApp.controller:LoginCtrl
  * @description
- * # SignupCtrl
+ * # LoginCtrl
  * Controller of the faptoriaApp
  */
 angular.module('faptoriaApp')
-  .controller('SignupCtrl', function ($scope , $http) {
-
-    $scope.signup = function(){
-          $http.post('/api/signup' , $scope.formSignup)
+  .controller('LoginCtrl', function ($scope , $http) {
+    $scope.login = function(){
+          $http.post('/api/login' , $scope.formLogin)
             .success(function(data , headers ){
                 $scope.message = data;
             })
@@ -19,6 +18,4 @@ angular.module('faptoriaApp')
                 $scope.mensaje = "falló la llamada al servidor";
               });
      }
-
-
   });

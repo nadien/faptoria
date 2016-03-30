@@ -5,7 +5,10 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     fs = require('fs'),
     multer = require('multer'),
-    Schema = mongoose.Schema;
+    Schema = mongoose.Schema,
+    jwt = require('jsonwebtoken'),
+    config = require('./app/scripts/config');
+    app.set('gjwtScrt', config.secret); // secret variable
 
     //..localhost/[name] <-- indica la base de datos a usar en mongdb
     mongoose.connect('mongodb://localhost/faptoria');
@@ -45,8 +48,6 @@ var User = mongoose.model( 'User' , {
 
 
 
-
-
 app.post('/api/photo',function(req,res){
 	upload(req,res,function(err) {
 		if(err) {
@@ -57,8 +58,8 @@ app.post('/api/photo',function(req,res){
 });
 
 
-
 // ************ All CRUDS methods will have only post *******************
+
 
 
 //get all users
@@ -71,20 +72,56 @@ app.post('/api/users' , function(req , res){
   })
 });
 
+//Authenticate
+app.post('/api/login',function(req,res){
+	User.findOne({
+    email : req.body.email,
+    pass : req.body.password
+  }, function(err , user){
+      if(err) res.send(err);
+
+      if(!user){
+        res.json("Falló la autenticación, usuario no se encuentra");
+      }else {
+        var token = jwt.sign(user, app.get('gjwtScrt'), {
+         expiresInMinutes: 1440 // expires in 24 hours
+       });
+
+       // return the information including token as JSON
+       res.json({
+         success: true,
+         message: 'Enjoy your token!',
+         token: token
+       });
+
+      }
+    });
+});
+
 
 //new user
 app.post('/api/signup' , function(req , res){
-    User.create({
-     email : req.body.email,
-     nick : req.body.nick,
-     pass : req.body.password
+  User.findOne({
+    email : req.body.email
+  } , function(err , user, next){
+    if(err) res.send(err)
 
-    }, function(err , users){
-        if(err)
-          res.send(err);
+    if(user == null){
+        User.create({
+          email : req.body.email,
+          nick : req.body.nick,
+          pass : req.body.password
+        }, function(err , users){
+              if(err)
+              res.send(err);
 
-      res.json(users);
-  })
+              res.json(users);
+        })
+     } else if(user.email == req.body.email){
+       res.send("Este email ya se ha usado antes");
+     }
+  });
+
 });
 
 //delete a user

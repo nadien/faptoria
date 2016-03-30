@@ -29,9 +29,14 @@
     <div ui-view="header1"></div>
 
 <br>
-    <div class="container">
-    <div ui-view="contenido"></div>
+  <div class="container">
+    <div class="row">
+    <div ui-view="contenido" class="col-xs-13 col-md-9"></div>
+      <div class="row">
+    <div ui-view="sidebar" class="col-xs-10 col-md-3"></div>
+  </div>
     </div>
+  </div>
 
 
 
@@ -78,6 +83,9 @@
         <script src="scripts/controllers/moderar.js"></script>
         <script src="scripts/controllers/upload.js"></script>
         <script src="scripts/controllers/signup.js"></script>
+        <script src="scripts/controllers/admin.js"></script>
+        <script src="scripts/controllers/login.js"></script>
+        <script src="scripts/controllers/board.js"></script>
         <!-- endbuild -->
 </body>
 </html>
