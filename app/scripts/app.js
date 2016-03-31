@@ -19,11 +19,19 @@ var app = angular
     'ngSanitize',
     'ngTouch',
     'ui.router'
-  ])
-  .config(function ($routeProvider, $stateProvider, $locationProvider) {
+  ]);
 
-    $routeProvider.otherwise({redirectTo : '/'});
-    $locationProvider.html5Mode(true);
+    app.run(["$rootScope" , function($rootScope ){
+
+    }]);
+
+  app.config([  "$stateProvider", "$locationProvider", "$urlRouterProvider", "$httpProvider", function ( $stateProvider, $locationProvider, $urlRouterProvider, $httpProvider) {
+
+   //$routeProvider.otherwise({redirectTo : '/'});
+  //  $locationProvider.html5Mode(true);
+    $urlRouterProvider.otherwise("/");
+    const token = window.localStorage['fd4deef86e4149be2649a12aac29484a'];
+    $httpProvider.defaults.headers.post['x-access-token'] = token;
 
     $stateProvider
    .state('/' , {
@@ -41,13 +49,31 @@ var app = angular
       }
      }
    })
-   .state('/admin' , {
+   .state('tablero' , {
+      url : '/tablero/:name' ,
+      views : {
+        'header1' : {
+          templateUrl : '/views/header.html'
+      },
+      'contenido' : {
+        templateUrl : '/views/board.html',
+        controller : 'BoardCtrl'
+      },
+      'sidebar' : {
+        templateUrl : '/views/sidebar.html'
+      }
+     }
+   })
+   .state('admin' , {
      url : '/admin' ,
      views : {
        'admin' : {
          templateUrl : 'views/admin/admin.html',
          controller : 'AdminCtrl'
       }
+    },
+    resolve: {
+      loginRequired: loginRequired
     }
   })
   .state('/moderar' , {
@@ -59,21 +85,6 @@ var app = angular
       'contenido' : {
         templateUrl : 'views/moderar.html'
       }
-    }
-  })
-  .state('/tablero/:id' , {
-     url : '/tablero/:id' ,
-     views : {
-       'header1' : {
-         templateUrl : '/views/header.html'
-     },
-     'contenido' : {
-       templateUrl : '/views/board.html',
-       controller : 'BoardCtrl'
-     },
-     'sidebar' : {
-       templateUrl : '/views/sidebar.html'
-     }
     }
   })
   .state('/subir' , {
@@ -95,7 +106,7 @@ var app = angular
         templateUrl : 'views/header.html'
       } ,
       'contenido' : {
-        templateUrl : 'views/acerca.html'
+        templateUrl : 'views/about.html'
       }
     }
   })
@@ -112,7 +123,10 @@ var app = angular
     }
   })
   .state('/Entrar' , {
-    url : '/Entrar' ,
+    url : '/Entrar' ,/*
+    resolve: {
+        skipIfLoggedIn: skipIfLoggedIn
+      },*/
     views : {
       'header1' : {
         templateUrl : 'views/header.html'
@@ -135,13 +149,37 @@ var app = angular
     }
   });
 
-  });
+  function skipIfLoggedIn($q , $location) {
+      var deferred = $q.defer();
+      if (token) {
+        $q.reject();
+        $location.path('/home');
+      //  alert("funca")
+      } else {
+        deferred.resolve();
+      }
+      return deferred.promise;
+    }
+
+    function loginRequired($q, $location) {
+      var deferred = $q.defer();
+      if (token) {
+        deferred.resolve();
+
+      } else {
+        $location.path('/login');
+      }
+      return deferred.promise;
+    }
+
+}]);
 
 
-app.controller('headerController' , function($scope, $http){
-  $scope.value = true;
-  if(false)
+app.controller('headerController' , function($scope, $http, $rootScope){
+  if(window.localStorage['fd4deef86e4149be2649a12aac29484a']){
   $scope.signOrLog = "Perfil"
+  $scope.valueShow = true;
+  }
   else
   $scope.signOrLog = "Entrar"
 })

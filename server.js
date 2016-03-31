@@ -9,6 +9,7 @@ var express = require('express'),
     jwt = require('jsonwebtoken'),
     config = require('./app/scripts/config');
     app.set('gjwtScrt', config.secret); // secret variable
+var login = require('./app/scripts/middleware/User');
 
     //..localhost/[name] <-- indica la base de datos a usar en mongdb
     mongoose.connect('mongodb://localhost/faptoria');
@@ -38,13 +39,48 @@ var upload = multer({ storage : storage}).single('userPhoto');
 
 
 
-//modelado de api variables
-var User = mongoose.model( 'User' , {
-  email : String ,
-  nick : String ,
-  pass : String ,
-  role : { type:Number, default:3}
+/*
+var apiRoutess = module.exports  = express.Router();
+
+// route middleware to verify a token
+apiRoutess.use(function(req, res, next) {
+
+  // check header or url parameters or post parameters for token
+  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+
+  // decode token
+  if (token) {
+
+    // verifies secret and checks exp of token
+    jwt.verify(token, app.get('gjwtScrt'), function(err, decoded) {
+      if (err) {
+        return res.json({ success: false, message: 'Falló la autenticación de token.' });
+      } else {
+        // if everything is good, save to request for use in other routes
+        req.decoded = decoded;
+        if(decoded._doc.role == 3){
+          res.send("Tu rol es visitante")
+        }
+        //res.send(decoded._doc.role)
+        next();
+      }
+    });
+
+  } else {
+    // if there is no token
+    // return an error
+    return res.status(403).send({
+        success: false,
+        message: 'No hay token.'
+    });
+
+  }
 });
+
+app.use('/api', apiRoutess);
+
+*/
+app.use(login);
 
 
 
@@ -53,7 +89,7 @@ app.post('/api/photo',function(req,res){
 		if(err) {
 			return res.end("Error subiendo el archivo.");
 		}
-		res.end("File is uploaded");
+		res.end("Archivo subido");
 	});
 });
 
@@ -62,96 +98,7 @@ app.post('/api/photo',function(req,res){
 
 
 
-//get all users
-app.post('/api/users' , function(req , res){
-    User.find().lean().exec( function(err , user){
-      if(err)throw err;
 
-    //  res.end(user);
-      res.json(user);
-  })
-});
-
-//Authenticate
-app.post('/api/login',function(req,res){
-	User.findOne({
-    email : req.body.email,
-    pass : req.body.password
-  }, function(err , user){
-      if(err) res.send(err);
-
-      if(!user){
-        res.json("Falló la autenticación, usuario no se encuentra");
-      }else {
-        var token = jwt.sign(user, app.get('gjwtScrt'), {
-         expiresInMinutes: 1440 // expires in 24 hours
-       });
-
-       // return the information including token as JSON
-       res.json({
-         success: true,
-         message: 'Enjoy your token!',
-         token: token
-       });
-
-      }
-    });
-});
-
-
-//new user
-app.post('/api/signup' , function(req , res){
-  User.findOne({
-    email : req.body.email
-  } , function(err , user, next){
-    if(err) res.send(err)
-
-    if(user == null){
-        User.create({
-          email : req.body.email,
-          nick : req.body.nick,
-          pass : req.body.password
-        }, function(err , users){
-              if(err)
-              res.send(err);
-
-              res.json(users);
-        })
-     } else if(user.email == req.body.email){
-       res.send("Este email ya se ha usado antes");
-     }
-  });
-
-});
-
-//delete a user
-app.delete('/api/delete_user/:id' , function(req , res){
-    User.remove({
-     _id : req.params.id
-    }, function(err , users){
-      if(err)
-        res.send(err);
-
-      res.end("Usuario eliminado con éxito");
-  })
-});
-
-//patch params on user
-app.put('/api/update_user/:id' , function(req , res){
-    User.findOneAndUpdate({
-      _id : req.params.id
-    },{$set : {
-     email : req.body.email,
-     nick : req.body.nick,
-     password : req.body.password
-    }
-  }, function(err , users){
-      if(err)
-        res.send(err);
-
-      res.end("Usuario actualizado con éxito");
-  })
-});
 
 app.listen(process.env.PORT || 9999 , function(port){
   console.log('Corriend en puerto 9999');

@@ -8,11 +8,6 @@
  * Controller of the faptoriaApp
  */
 angular.module('faptoriaApp')
-  .controller('homeController', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('homeController', function ($scope, $rootScope) {
 
   });

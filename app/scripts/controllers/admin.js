@@ -9,6 +9,7 @@
  */
 angular.module('faptoriaApp')
   .controller('AdminCtrl', function ($scope , $http) {
+
     $http.post('/api/users' , {})
       .success(function(data , headers ){
           $scope.message = data;

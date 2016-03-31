@@ -8,10 +8,15 @@
  * Controller of the faptoriaApp
  */
 angular.module('faptoriaApp')
-  .controller('LoginCtrl', function ($scope , $http) {
+  .controller('LoginCtrl', function ($scope , $http, $rootScope) {
     $scope.login = function(){
           $http.post('/api/login' , $scope.formLogin)
             .success(function(data , headers ){
+              if(data.success === true){
+                window.localStorage['fd4deef86e4149be2649a12aac29484a'] = data.token;
+              //  window.location.href = "/";
+                $scope.message = data;
+              }else
                 $scope.message = data;
             })
             .error(function(data){

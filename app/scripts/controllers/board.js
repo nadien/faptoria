@@ -9,9 +9,5 @@
  */
 angular.module('faptoriaApp')
   .controller('BoardCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  
   });
