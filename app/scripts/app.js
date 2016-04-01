@@ -23,14 +23,16 @@ var app = angular
 
     app.run(["$rootScope" , function($rootScope ){
 
+
     }]);
 
-  app.config([  "$stateProvider", "$locationProvider", "$urlRouterProvider", "$httpProvider", function ( $stateProvider, $locationProvider, $urlRouterProvider, $httpProvider) {
+  app.config([ "$stateProvider", "$locationProvider", "$urlRouterProvider", "$httpProvider", function ( $stateProvider, $locationProvider, $urlRouterProvider, $httpProvider) {
 
-   //$routeProvider.otherwise({redirectTo : '/'});
-  //  $locationProvider.html5Mode(true);
+
     $urlRouterProvider.otherwise("/");
     const token = window.localStorage['fd4deef86e4149be2649a12aac29484a'];
+    $httpProvider.defaults.useXDomain = true;
+    $httpProvider.defaults.headers.common['x-access-token'] = token;
     $httpProvider.defaults.headers.post['x-access-token'] = token;
 
     $stateProvider
@@ -70,6 +72,15 @@ var app = angular
        'admin' : {
          templateUrl : 'views/admin/admin.html',
          controller : 'AdminCtrl'
+      }
+    }
+  })
+   .state('admin/dashboard' , {
+     url : '/admin/dashboard' ,
+     views : {
+       'admin' : {
+         templateUrl : 'views/admin/dashboard.html',
+         controller : 'DashboardCtrl'
       }
     },
     resolve: {
@@ -123,10 +134,10 @@ var app = angular
     }
   })
   .state('/Entrar' , {
-    url : '/Entrar' ,/*
+    url : '/Entrar' ,
     resolve: {
         skipIfLoggedIn: skipIfLoggedIn
-      },*/
+      },
     views : {
       'header1' : {
         templateUrl : 'views/header.html'
@@ -173,13 +184,3 @@ var app = angular
     }
 
 }]);
-
-
-app.controller('headerController' , function($scope, $http, $rootScope){
-  if(window.localStorage['fd4deef86e4149be2649a12aac29484a']){
-  $scope.signOrLog = "Perfil"
-  $scope.valueShow = true;
-  }
-  else
-  $scope.signOrLog = "Entrar"
-})

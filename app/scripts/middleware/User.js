@@ -68,36 +68,6 @@ var express = require('express'),
     });
 
 
-    //patch params on user
-    app.put('/api/update_user/:id' , function(req , res){
-        User.findOneAndUpdate({
-          _id : req.params.id
-        },{$set : {
-         email : req.body.email,
-         nick : req.body.nick,
-         password : req.body.password
-        }
-      }, function(err , users){
-          if(err)
-            res.send(err);
-
-          res.end("Usuario actualizado con éxito");
-      })
-    });
-
-    //delete a user
-    app.delete('/api/delete_user/:id' , function(req , res){
-        User.remove({
-         _id : req.params.id
-        }, function(err , users){
-          if(err)
-            res.send(err);
-
-          res.end("Usuario eliminado con éxito");
-      })
-    });
-
-
     var apiRoutess =  express.Router();
 
     // route middleware to verify a token
@@ -116,8 +86,11 @@ var express = require('express'),
           } else {
             // if everything is good, save to request for use in other routes
             req.decoded = decoded;
-            //res.send(decoded._doc.role)
+            if(decoded._doc.role === 1 || decoded._doc.role === 2){
             next();
+          } else{
+            res.send("No tienes permisos para hacer esta petición");
+          }
           }
         });
 
@@ -131,6 +104,42 @@ var express = require('express'),
 
       }
     });
+
+
+    //delete a user
+    app.delete('/api/delete_user/:id', apiRoutess , function(req , res){
+      res.header("Access-Control-Allow-Origin", "*");
+      res.header("Access-Control-Allow-Headers", "X-Requested-With");
+
+        User.remove({
+         _id : req.params.id
+        }, function(err , users){
+          if(err)
+            res.send(err);
+
+          res.end("Usuario eliminado con éxito");
+      })
+    });
+    
+    //patch params on user
+    app.put('/api/update_user/:id', apiRoutess , function(req , res){
+        User.findOneAndUpdate({
+          _id : req.params.id
+        },{$set : {
+         email : req.body.email,
+         nick : req.body.nick,
+         password : req.body.password
+        }
+      }, function(err , users){
+          if(err)
+            res.send(err);
+
+          res.end("Usuario actualizado con éxito");
+      })
+    });
+
+
+
 
     app.post('/api/users' , apiRoutess ,function(req , res){
         User.find().lean().exec( function(err , user){

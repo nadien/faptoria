@@ -1,4 +1,4 @@
-<nav class="navbar navbar-inverse" ng-controller="headerController">
+<nav class="navbar navbar-inverse" ng-controller="HeadercontrollerCtrl">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="" href="#">
@@ -15,10 +15,34 @@
         <li ><a ng-href="/#/contacto">Contacto</a></li>
       </ul>
       <ul class="nav navbar-nav pull-right">
+        <li > <a ng-show="valueShow"> Hola {{nombres}} </a ><li>
       <li > <a ng-href="/#/{{signOrLog}}" > {{signOrLog}} </a ><li>
+        <li> <button ng-show="valueShow" type="button" class="btn btn-danger btn-lg pull-right md-warn md-raised md-hue-2" data-toggle="modal" data-target="#myModal" >  Salir  </button> </li>
         <li ><a ng-href="/#/registro" ng-show="!valueShow">Registrar</a></li>
       </ul>
 
     </div>
   </div>
+
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Nooooo...</h4>
+      </div>
+      <div class="modal-body">
+        ¿Estás seguro que quieres salir?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+        <button type="button" ng-click="salir()" class="btn btn-primary">Sí</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
 </nav>

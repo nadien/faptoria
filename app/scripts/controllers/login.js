@@ -15,6 +15,7 @@ angular.module('faptoriaApp')
               if(data.success === true){
                 window.localStorage['fd4deef86e4149be2649a12aac29484a'] = data.token;
               //  window.location.href = "/";
+              window.localStorage['nombre'] = data.userData.nick;
                 $scope.message = data;
               }else
                 $scope.message = data;
