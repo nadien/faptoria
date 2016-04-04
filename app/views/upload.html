@@ -2,17 +2,23 @@
            <div class="col-sm-8 col-sm-offset-2 text-center">
                    <div class="form-group">
 
-                       <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+                       <!-- BIND THIS VALUE TO formData.text IN ANGULAR action="/api/upload"-->
                        <p>Subir imagen </p>
-                      
 
-                   <form  enctype='multipart/form-data' action="/api/upload" method="post">
-                   <input type='file' name='userPhoto' accept=".png, .jpg, .jpeg" />
-                   <input type='text' name='tags'>
+{{response}}
+                   <form  enctype='multipart/form-data' name="formUpload" action="/api/upload" method="post">
+                   <input type='file' name='userPhoto' accept=".png, .jpg, .jpeg" ng-model="formImg.img"/>
+                   <input type='text' name='token' ng-model="formImg.BoxToken" >
                    <input type="submit" value="Upload Image" >
                    </form>
                    <!-- createToDo() WILL CREATE NEW TODOS -->
  </div>
            </div>
        </div>
-{{mensaje}}
+
+{{imagenl}}
+
+       <form action="/api/upload" ng-upload="complete(content)">
+            <input type="file" name="userPhoto"></input>
+            <input type="submit" value="Upload" ng-disabled="$isLoading"></input>
+          </form>

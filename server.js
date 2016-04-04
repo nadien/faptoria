@@ -18,13 +18,13 @@ var uploadImg = require('./app/scripts/middleware/Upload');
     mongoose.connect('mongodb://localhost/faptoria');
 
     app.use(morgan('dev'));
-    app.use(bodyParser.urlencoded({'extended':'true'}));            // parse application/x-www-form-urlencoded
+    app.use(bodyParser.urlencoded({'extended':'false'}));            // parse application/x-www-form-urlencoded
     app.use(bodyParser.json());                                     // parse application/json
     app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
     app.use(cors());
     app.use(express.static(__dirname + '/app'));
     app.use('/bower_components',  express.static(__dirname + '/bower_components'));
-   
+
     app.get('/', function(req, res, next) {
       // Just send the index.html for other files to support HTML5Mode
       res.sendFile('/app/index.html', { root: __dirname });
