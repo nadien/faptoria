@@ -18,7 +18,7 @@ var uploadImg = require('./app/scripts/middleware/Upload');
     mongoose.connect('mongodb://localhost/faptoria');
 
     app.use(morgan('dev'));
-    app.use(bodyParser.urlencoded({'extended':'false'}));            // parse application/x-www-form-urlencoded
+    app.use(bodyParser.urlencoded({'extended':'true'}));            // parse application/x-www-form-urlencoded
     app.use(bodyParser.json());                                     // parse application/json
     app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
     app.use(cors());

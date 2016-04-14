@@ -4,9 +4,12 @@ var express = require('express'),
     mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     multer = require('multer'),
-    jwt = require('jsonwebtoken');
+    jwt = require('jsonwebtoken'),
+    util = require('util'),
+    formidable = require('formidable');
 
 module.exports = app;
+
 
 var storage = multer.diskStorage({
   destination: function (req, file, callback) {
@@ -18,7 +21,17 @@ var storage = multer.diskStorage({
   }
 });
 
-
+/*
+var storage = multer.diskStorage({ //multers disk storage settings
+      destination: function (req, file, cb) {
+          cb(null, './uploads/')
+      },
+      filename: function (req, file, cb) {
+          var datetimestamp = Date.now();
+          cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1])
+      }
+  });
+*/
 var schema = new Schema({
     //img: { data: Buffer, contentType: String },
     title : String,
@@ -38,62 +51,119 @@ var apiRoutes =  express.Router();
 apiRoutes.use(function(req, res, next) {
 
   // check header or url parameters or post parameters for token
-  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+//  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+  var token = (req.body && req.body.access_token) || (req.query && req.query.access_token) || req.headers['x-access-token'];
 
+  var form = new formidable.IncomingForm();
 
+    form.parse(req, function(err, fields, files) {
+      token = fields.token;
 
-console.log("------------------ "  +  JSON.stringify(req.form.formUpload) +  " ----------------------");
-  // decode token
-  if (token) {
-    // verifies secret and checks exp of token
-    jwt.verify(token, app.get('gjwtScrt'), function(err, decoded) {
-      if (err) {
-        return res.json({ success: false, message: 'Falló la autenticación de token.' });
-      } else {
-        // if everything is good, save to request for use in other routes
-        req.decoded = decoded;
-        if(decoded._doc.role === 1 || decoded._doc.role === 2 || decoded._doc.role === 3){
-        next();
-      } else{
-        res.send("No tienes permisos para hacer esta petición");
-      }
-      }
-    });
+      console.log(JSON.stringify(files));
 
-  } else {
-    // if there is no token
-    // return an error
-    return res.status(403).send({
-        success: false,
-        message: 'No hay token.'
-    });
+    if (token) {
+      // verifies secret and checks exp of token
+      jwt.verify(token, app.get('gjwtScrt'), function(err, decoded) {
+        if (err) {
+          return res.json({ success: false, message: 'Falló la autenticación de token.' });
+        } else {
+          // if everything is good, save to request for use in other routes
+          req.decoded = decoded;
+          if(decoded._doc.role === 1 || decoded._doc.role === 2 || decoded._doc.role === 3){
 
-  }
+          var imgPath = files.userPhoto.path;
+
+          var A = mongoose.model('images', schema);
+
+              var a = new A;
+             // a.img.data = fs.readFileSync(imgPath);
+              a.title = files.userPhoto.name;
+              a.path = imgPath;
+              a.size = files.userPhoto.size;
+             // a.img.contentType = 'image/png';
+              a.save(function (err, a) {
+                if (err) throw err;
+
+                res.json({
+                  success : true,
+                imageData : a
+                });
+                next();
+              });
+
+          next();
+        } else{
+          res.send("No tienes permisos para hacer esta petición");
+        }
+        }
+      });
+
+    } else {
+      // if there is no token
+      // return an error
+      return res.status(403).send({
+          success: false,
+          message: 'No hay token.'
+      });
+    }
+  });
+
 });
 
 var upload = multer({ storage : storage}).single('userPhoto');
-app.post('/api/upload',  apiRoutes, function(req,res){
+  var user = mongoose.model('user', schema);
+
+app.post('/api/upload', upload, function(req,res){
 
 
-console.log(req.file)
-var imgPath = req.file.path;
 
-var A = mongoose.model('images', schema);
+  user.findOne({
+    _id : req.body.idImage
+  }, function(err , user){
+      if(err) res.send(err);
 
-    var a = new A;
-   // a.img.data = fs.readFileSync(imgPath);
-    a.title = req.file.originalname;
-    a.path = imgPath;
-    a.size = req.file.size;
-   // a.img.contentType = 'image/png';
-    a.save(function (err, a) {
-      if (err) throw err;
+      if(!user){
+        res.json("Falló la autenticación, usuario o contraseña incorrectos");
+      }else {
+        res.json({
+          response : user
+        });
+    
 
-      res.json({
-        success : true,
-      imageData : a
-      });
+       // return the information including token as JSON
+
+
+      }
     });
+
+            var imgPath = req.file.path;
+
+             var A = mongoose.model('images', schema);
+
+                 var a = new A;
+                // a.img.data = fs.readFileSync(imgPath);
+                 a.title = req.file.originalname;
+                 a.path = imgPath;
+                 a.size = req.file.size;
+                // a.img.contentType = 'image/png';
+                 a.save(function (err, a) {
+                   if (err) throw err;
+
+                   res.json({
+                     success : true,
+                   imageData : a
+                   });
+                 });
+
+
+  /* upload(req,res,function(err){
+             if(err){
+                  res.json({error_code:1,err_desc:err});
+                  return;
+             }
+              res.json({error_code:req.files });
+         }); */
+
 
 });
 

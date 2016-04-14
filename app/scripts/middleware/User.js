@@ -120,7 +120,7 @@ var express = require('express'),
           res.end("Usuario eliminado con éxito");
       })
     });
-    
+
     //patch params on user
     app.put('/api/update_user/:id', apiRoutess , function(req , res){
         User.findOneAndUpdate({

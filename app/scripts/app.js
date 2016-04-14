@@ -19,7 +19,7 @@ var app = angular
     'ngSanitize',
     'ngTouch',
     'ui.router',
-    'ngUpload'
+    'ngFileUpload'
   ]);
 
     app.run(["$rootScope" , function($rootScope ){

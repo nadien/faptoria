@@ -5,10 +5,11 @@
                        <!-- BIND THIS VALUE TO formData.text IN ANGULAR action="/api/upload"-->
                        <p>Subir imagen </p>
 
-{{response}}
-                   <form  enctype='multipart/form-data' name="formUpload" action="/api/upload" method="post">
-                   <input type='file' name='userPhoto' accept=".png, .jpg, .jpeg" ng-model="formImg.img"/>
-                   <input type='text' name='token' ng-model="formImg.BoxToken" >
+Identificador: {{_id}}
+    {{message}} <br>
+                   <form  enctype='multipart/form-data'  action="/api/upload" method="post">
+                   <input type='file' name='userPhoto' accept=".png, .jpg, .jpeg" />
+                   <input type='text' name='idImage' ng-model="formImg.BoxId" >
                    <input type="submit" value="Upload Image" >
                    </form>
                    <!-- createToDo() WILL CREATE NEW TODOS -->
@@ -16,9 +17,21 @@
            </div>
        </div>
 
-{{imagenl}}
-
-       <form action="/api/upload" ng-upload="complete(content)">
-            <input type="file" name="userPhoto"></input>
-            <input type="submit" value="Upload" ng-disabled="$isLoading"></input>
-          </form>
+<form action="/api/upload" method="post" name="upload_form" >
+               Single Image with validations
+           <input
+              type="file"
+              ngf-select
+              ng-model="file"
+              name="file"
+              ngf-pattern="'image/*'"
+              accept="image/*"
+              ngf-max-size="20MB"
+              />
+           Image thumbnail: <img style="width:100px;" ngf-thumbnail="file || '/thumb.jpg'"/>
+           <i ng-show="up.upload_form.file.$error.required">*required</i><br>
+           <i ng-show="up.upload_form.file.$error.maxSize">File too large
+           {{file.size / 1000000|number:1}}MB: max 20M</i>
+           <button type="submit" >submit</button>
+           <p>{{progress}}</p>
+       </form>
