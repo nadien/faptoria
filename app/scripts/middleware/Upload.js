@@ -45,6 +45,7 @@ var schema = new Schema({
 
 });
 
+/*
 var apiRoutes =  express.Router();
 
 // route middleware to verify a token
@@ -109,13 +110,14 @@ apiRoutes.use(function(req, res, next) {
   });
 
 });
+*/
 
 var upload = multer({ storage : storage}).single('userPhoto');
   var user = mongoose.model('user', schema);
 
 app.post('/api/upload', upload, function(req,res){
 
-
+console.log(req.body.idImage);
 
   user.findOne({
     _id : req.body.idImage
@@ -125,35 +127,33 @@ app.post('/api/upload', upload, function(req,res){
       if(!user){
         res.json("Falló la autenticación, usuario o contraseña incorrectos");
       }else {
-        res.json({
-          response : user
-        });
-    
+        
+        var imgPath = req.file.path;
 
+         var A = mongoose.model('images', schema);
+
+             var a = new A;
+            // a.img.data = fs.readFileSync(imgPath);
+             a.title = req.file.originalname;
+             a.path = imgPath;
+             a.size = req.file.size;
+            // a.img.contentType = 'image/png';
+             a.save(function (err, a) {
+               if (err) throw err;
+
+               res.json({
+                 success : true,
+               imageData : a
+               });
+             });
        // return the information including token as JSON
 
 
       }
     });
 
-            var imgPath = req.file.path;
 
-             var A = mongoose.model('images', schema);
 
-                 var a = new A;
-                // a.img.data = fs.readFileSync(imgPath);
-                 a.title = req.file.originalname;
-                 a.path = imgPath;
-                 a.size = req.file.size;
-                // a.img.contentType = 'image/png';
-                 a.save(function (err, a) {
-                   if (err) throw err;
-
-                   res.json({
-                     success : true,
-                   imageData : a
-                   });
-                 });
 
 
   /* upload(req,res,function(err){
