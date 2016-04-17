@@ -8,7 +8,7 @@ var express = require('express'),
     util = require('util'),
     formidable = require('formidable');
 
-module.exports = app;
+    module.exports = app;
 
 
 var storage = multer.diskStorage({
@@ -21,18 +21,7 @@ var storage = multer.diskStorage({
   }
 });
 
-/*
-var storage = multer.diskStorage({ //multers disk storage settings
-      destination: function (req, file, cb) {
-          cb(null, './uploads/')
-      },
-      filename: function (req, file, cb) {
-          var datetimestamp = Date.now();
-          cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1])
-      }
-  });
-*/
-var schema = new Schema({
+var imageSchema = new Schema({
     //img: { data: Buffer, contentType: String },
     title : String,
     index : { type : Boolean , default : false },
@@ -41,8 +30,9 @@ var schema = new Schema({
     size : {type : String} ,
     uploadDate : {type : Date , default : Date.now},
     path : String,
-    votes : { positives : Number , negatives : Number }
-
+    votes : { positives : { type : Number , default : 0 } ,
+             negatives : { type : Number , default : 0 } },
+    id_user : { type : mongoose.Schema.Types.ObjectId, ref : 'User'}
 });
 
 /*
@@ -113,11 +103,10 @@ apiRoutes.use(function(req, res, next) {
 */
 
 var upload = multer({ storage : storage}).single('userPhoto');
-  var user = mongoose.model('user', schema);
+  var user = mongoose.model('user', imageSchema);
 
 app.post('/api/upload', upload, function(req,res){
 
-console.log(req.body.idImage);
 
   user.findOne({
     _id : req.body.idImage
@@ -125,18 +114,19 @@ console.log(req.body.idImage);
       if(err) res.send(err);
 
       if(!user){
-        res.json("Falló la autenticación, usuario o contraseña incorrectos");
-      }else {
-        
+        res.json("Falló la autenticación, usuario incorrecto");
+      }else if(user){
+        if(req.file != undefined || req.file != null){
         var imgPath = req.file.path;
 
-         var A = mongoose.model('images', schema);
+         var A = mongoose.model('images', imageSchema);
 
              var a = new A;
             // a.img.data = fs.readFileSync(imgPath);
              a.title = req.file.originalname;
              a.path = imgPath;
              a.size = req.file.size;
+             a.id_user = req.body.idImage;
             // a.img.contentType = 'image/png';
              a.save(function (err, a) {
                if (err) throw err;
@@ -148,12 +138,14 @@ console.log(req.body.idImage);
              });
        // return the information including token as JSON
 
-
+            }else{
+              res.json({
+                success : false,
+                message : "Tienes que subir una imagen o archivo válido"
+              });
+            }
       }
     });
-
-
-
 
 
   /* upload(req,res,function(err){
@@ -168,7 +160,7 @@ console.log(req.body.idImage);
 });
 
 app.post('/api/getPhotos' , function(req , res){
-  var A = mongoose.model('images', schema);
+  var A = mongoose.model('images', imageSchema);
   var a = new A;
   A.find().lean().exec(function(err , image){
           if(err)throw err;
@@ -180,7 +172,7 @@ app.post('/api/getPhotos' , function(req , res){
 });
 
 app.post('/api/getPhoto/:id' , function(req , res){
-    var A = mongoose.model('images', schema);
+    var A = mongoose.model('images', imageSchema);
     A.findOne({
       _id : req.params.id
     } , function(err , image){

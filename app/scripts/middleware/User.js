@@ -11,9 +11,11 @@ var express = require('express'),
    email : String ,
    nick : String ,
    pass : String ,
-   role : { type:Number, default:3}
+   role : { type:Number, default:3},
+   images : Number
  });
 
+//  module.exports = mongoose.model('Usuario' , User);
 
     //Authenticate
     app.post('/api/login',function(req,res){

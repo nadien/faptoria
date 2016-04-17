@@ -6,7 +6,8 @@ var express = require('express'),
     fs = require('fs'),
     Schema = mongoose.Schema,
     jwt = require('jsonwebtoken'),
-    cors = require('cors');
+    cors = require('cors'),
+    http = require('http');
     config = require('./app/scripts/config');
     app.set('gjwtScrt', config.secret); // secret variable
 var login = require('./app/scripts/middleware/User');

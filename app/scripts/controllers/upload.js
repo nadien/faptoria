@@ -14,19 +14,17 @@ angular.module('faptoriaApp')
 if(token){
     $http.post('/api/getRole' , {})
       .success(function(data , headers ){
-        //  $scope.message = data;
-        //  alert(headers)
+    
           $scope.formImg = { BoxId : data.userData._doc._id};
-
-          if(data.userData._doc.role <= 2);
-
-        else if(data.userData._doc.role >= 3){
-          $scope.message = "Tienes que registrarte para subir imagen" ;
-        }
+          if(data.userData._doc.role)
+            $scope.value = true;
       })
       .error(function(data){
           $scope.message = "falló la llamada al servidor";
         });
+} else{
+    $scope.message = "Tienes que registrarte para subir imagen" ;
+    $scope.value = false;
 }
 
   })

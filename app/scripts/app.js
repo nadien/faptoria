@@ -29,7 +29,6 @@ var app = angular
 
   app.config([ "$stateProvider", "$locationProvider", "$urlRouterProvider", "$httpProvider", function ( $stateProvider, $locationProvider, $urlRouterProvider, $httpProvider) {
 
-
     $urlRouterProvider.otherwise("/");
     const token = window.localStorage['fd4deef86e4149be2649a12aac29484a'];
     $httpProvider.defaults.useXDomain = true;
@@ -76,11 +75,15 @@ var app = angular
       }
     }
   })
-   .state('admin/dashboard' , {
-     url : '/admin/dashboard' ,
+   .state('admin/:id' , {
+     url : '/admin/:id' ,
      views : {
+       'headerAdmin' : {
+         templateUrl : 'views/admin/header_admin.html'
+       },
        'admin' : {
-         templateUrl : 'views/admin/dashboard.html',
+         templateUrl : function(urlName){
+           return 'views/admin/' + urlName.id +  '.html'},
          controller : 'DashboardCtrl'
       }
     },
