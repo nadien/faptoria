@@ -98,7 +98,11 @@ var app = angular
         templateUrl : 'views/header.html'
       },
       'contenido' : {
-        templateUrl : 'views/moderar.html'
+        templateUrl : 'views/moderar.html',
+        controller : 'ModerarCtrl'
+      },
+      'sidebar' : {
+        templateUrl : '/views/sidebar.html'
       }
     }
   })

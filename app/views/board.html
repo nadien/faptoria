@@ -1,11 +1,10 @@
 <div class="container" >
 
      <div class="blog-header">
-       <p class="lead blog-description">The official example template of creating a blog with Bootstrap.</p>
+       <p class="lead blog-description">Apartado para anuncio</p>
      </div>
 
      <div class="row">
-
        <div class="col-sm-8 blog-main">
          <div class="row">
             {{url}}
@@ -14,8 +13,12 @@
      <div class="thumbnail">
      <img src="{{image.path}}" alt="...">
        <div class="caption">
-         <h3>{{image.votes}}</h3>
-         <p>Tags: </p>  uno ,dos ,tres
+         <center>
+         <span ng-click="votar()" ng-model="votes" class="glyphicon glyphicon-thumbs-up gi-2x" style="color:green">{{image.votes.positives }}</span>
+          &nbsp <span class="glyphicon glyphicon-thumbs-down gi-2x" style="color:red">{{image.votes.negatives }}</span>
+         </center>
+            <p>Tags: </p>  uno ,dos ,tres
+
        </div>
      </div>
 

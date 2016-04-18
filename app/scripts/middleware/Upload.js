@@ -166,7 +166,7 @@ app.post('/api/getPhotos' , function(req , res){
           if(err)throw err;
 
           //res.contentType(doc.img.contentType);
-          res.send(image);
+          res.json(image);
       })
 
 });

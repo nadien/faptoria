@@ -14,7 +14,7 @@ angular.module('faptoriaApp')
 if(token){
     $http.post('/api/getRole' , {})
       .success(function(data , headers ){
-    
+
           $scope.formImg = { BoxId : data.userData._doc._id};
           if(data.userData._doc.role)
             $scope.value = true;

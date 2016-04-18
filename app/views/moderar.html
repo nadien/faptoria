@@ -1,1 +1,39 @@
-<p>This is the moderar view.</p>
+<div class="container" ng-init="nombre='shoptienda'">
+
+     <div class="blog-header">
+       <h1 class="blog-title">{{nombre}}</h1>
+     </div>
+
+
+     <div class="row">
+       <div class="col-sm-8 blog-main">
+         <div class="row">
+          <!-- imagenes -->
+   <div class="col-sm-6 col-md-12" ng-repeat="img in images | orderBy:'$index':true"  ng-if="!img.index">
+     <div class="thumbnail" >
+      <a href="#/tablero/{{img._id}}" > <img ng-src="{{img.path}}" alt="{{img.title}}"></a>
+       <div class="caption">
+         <span class="glyphicon glyphicon-thumbs-up">{{img.votes.positives }}</span>
+           <span class="glyphicon glyphicon-thumbs-down">{{img.votes.negatives }}</span>
+         <p>Tags: </p>  uno ,dos ,tres
+       </div>
+
+     </div><hr>
+     <!-- fin imagenes -->
+   </div>
+ </div>
+
+         <nav>
+           <ul class="pager">
+             <li><a href="/">Previous</a></li>
+             <li><a href="/">Next</a></li>
+           </ul>
+         </nav>
+
+       </div><!-- /.blog-main -->
+
+
+
+     </div><!-- /.row -->
+
+   </div><!-- /.container -->
