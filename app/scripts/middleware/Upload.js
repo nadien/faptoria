@@ -158,9 +158,9 @@ app.post('/api/upload', upload, function(req,res){
 
 
 });
-
+var A = mongoose.model('images', imageSchema);
 app.post('/api/getPhotos' , function(req , res){
-  var A = mongoose.model('images', imageSchema);
+
   var a = new A;
   A.find().lean().exec(function(err , image){
           if(err)throw err;
@@ -185,12 +185,49 @@ app.post('/api/getPhoto/:id' , function(req , res){
 });
 
 
-/*
+var apiRoutess =  express.Router();
 
- A.findById(a, function (err, doc) {
-          if (err) return next(err);
-          res.contentType(doc.img.contentType);
-          res.send(doc.img.data);
-        });
+apiRoutess.use(function(req, res, next) {
 
-*/
+  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+
+  if (token) {
+
+    jwt.verify(token, app.get('gjwtScrt'), function(err, decoded) {
+      if (err) {
+        return res.json({ success: false, message: 'Falló la autenticación de token.' });
+      } else {
+        req.decoded = decoded;
+        if(decoded._doc.role === 1 || decoded._doc.role === 2){
+        next();
+      } else{
+        res.send("No tienes permisos para hacer esta petición");
+      }
+      }
+    });
+
+  } else {
+    // if there is no token
+    // return an error
+    return res.status(403).send({
+        success: false,
+        message: 'No hay token.'
+    });
+
+  }
+});
+
+
+app.delete('/api/delete_photo/:id', apiRoutess, function(req , res){
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+
+  A.findOneAndRemove({
+     _id : req.params.id
+   }, function(err , image){
+      if(err)
+        res.send(err);
+        fs.unlinkSync(image.path);
+      res.json(image);
+  })
+});

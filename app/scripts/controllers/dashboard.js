@@ -20,7 +20,7 @@ angular.module('faptoriaApp')
 
       $scope.delete = function(userId){
         $http.delete('/api/delete_user/' + userId , {})
-          .success(function(data , headers ){
+          .success(function(data ){
               $scope.message = data;
           })
           .error(function(data){

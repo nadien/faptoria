@@ -42,7 +42,6 @@ app.use(getToken);
 app.use(uploadImg);
 
 
-
 // ************ All CRUDS methods will have only post *******************
 
 app.listen(process.env.PORT || 9999 , function(port){
