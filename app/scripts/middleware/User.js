@@ -110,9 +110,7 @@ var express = require('express'),
 
     //delete a user
     app.delete('/api/delete_user/:id', apiRoutess , function(req , res){
-      res.header("Access-Control-Allow-Origin", "*");
-      res.header("Access-Control-Allow-Headers", "X-Requested-With");
-
+    
         User.remove({
          _id : req.params.id
         }, function(err , users){

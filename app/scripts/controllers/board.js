@@ -21,9 +21,58 @@ angular.module('faptoriaApp')
                 $scope.mensaje = "falló la llamada al servidor";
               });
 
-    $scope.votar = function(){
-
-      $scope.image.votes.positives++;
+    $scope.votarPos = function(id ){
+    $scope.image.votes.positives++;
+    $http.post('/api/vote/' + id , {votePos : $scope.image.votes.positives , voteNeg : $scope.image.votes.negatives})
+         .success(function(data ){
+              $scope.message = data;
+         })
+         .error(function(data){
+             $scope.mensaje = "falló la llamada al servidor";
+           });
+      //$scope.image.votes.positives++;
     }
+
+ $scope.votarNeg = function(id , num){
+    $scope.image.votes.negatives++;
+    $http.post('/api/vote/' + id , {voteNeg : $scope.image.votes.negatives , votePos : $scope.image.votes.positives})
+         .success(function(data ){
+              $scope.message = data;
+         })
+         .error(function(data){
+             $scope.mensaje = "falló la llamada al servidor";
+           });
+      //$scope.image.votes.positives++;
+    }
+
+    $http.post('/api/getRole' , {})
+                .success(function(data , headers ){
+
+                  if(data.userData._doc.role <= 2)
+                  $scope.value = true;
+                  else if(data.userData._doc.role >= 3){
+                  $scope.value = false;
+                  }
+                })
+                .error(function(data){
+                    $scope.mensaje = "falló la llamada al servidor";
+                });
+
+      $scope.delete = function(id){
+        $http.delete('/api/delete_photo/' + id , {})
+        .success(function(data  ){
+          if(data.success == true){
+            window.location.href = "/";
+          }
+            $scope.message = data;
+        })
+        .error(function(data){
+            $scope.mensaje = "falló la llamada al servidor";
+          });
+
+      }
+
+
+
 
   });

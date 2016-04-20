@@ -17,8 +17,8 @@
           &nbsp <span class="glyphicon glyphicon-thumbs-down gi-2x" style="color:red">{{img.votes.negatives }}</span>
          </center>
          <div class="row">
-        <input ng-click="" value="Aprobar imagen" class="btn btn-success pull-left" ng-show="value">
-        <input ng-click="eliminar(img._id)" value="Eliminar imagen" class="btn btn-danger pull-right" ng-show="value">
+        <input ng-click="approve(img._id)" value="Aprobar imagen" class="btn btn-success pull-left" ng-show="value">
+        <input ng-click="delete(img._id)" value="Eliminar imagen" class="btn btn-danger pull-right" ng-show="value">
       </div>
       <div class="row">
          <p>Tags: </p>  uno ,dos ,tres

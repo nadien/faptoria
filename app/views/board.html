@@ -14,10 +14,16 @@
      <img src="{{image.path}}" alt="...">
        <div class="caption">
          <center>
-         <span ng-click="votar()" ng-model="votes" class="glyphicon glyphicon-thumbs-up gi-2x" style="color:green">{{image.votes.positives }}</span>
-          &nbsp <span class="glyphicon glyphicon-thumbs-down gi-2x" style="color:red">{{image.votes.negatives }}</span>
+         <span ng-click="votarPos(image._id)" ng-model="votes" class="glyphicon glyphicon-thumbs-up gi-2x" style="color:green">{{image.votes.positives }}</span>
+          &nbsp <span ng-click="votarNeg(image._id)" class="glyphicon glyphicon-thumbs-down gi-2x" style="color:red">{{image.votes.negatives }}</span>
          </center>
-            <p>Tags: </p>  uno ,dos ,tres
+         <hr/>
+         <div class="row">
+        <input ng-click="delete(image._id)" value="Eliminar imagen" class="btn btn-danger pull-right" ng-show="value">
+      </div>
+      <div class="row">
+         <p>Tags: </p>  uno ,dos ,tres {{message}}
+       </div>
 
        </div>
      </div>

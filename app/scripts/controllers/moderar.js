@@ -34,7 +34,7 @@ angular.module('faptoriaApp')
                   $scope.mensaje = "falló la llamada al servidor";
               });
 
-    $scope.eliminar = function(id){
+    $scope.delete = function(id){
       $http.delete('/api/delete_photo/' + id , {})
       .success(function(data , headers ){
           $scope.message = data;
@@ -42,7 +42,18 @@ angular.module('faptoriaApp')
       .error(function(data){
           $scope.mensaje = "falló la llamada al servidor";
         });
-  
+
+    }
+
+    $scope.approve = function(id){
+      $http.post('/api/approve/' + id , {})
+      .success(function(data , headers ){
+          $scope.message = data;
+      })
+      .error(function(data){
+          $scope.mensaje = "falló la llamada al servidor";
+        });
+
     }
 
   });

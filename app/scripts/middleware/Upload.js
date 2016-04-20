@@ -7,7 +7,7 @@ var express = require('express'),
     jwt = require('jsonwebtoken'),
     util = require('util'),
     formidable = require('formidable');
-
+var requestIp = require('request-ip');
     module.exports = app;
 
 
@@ -171,12 +171,16 @@ app.post('/api/getPhotos' , function(req , res){
 
 });
 
+
 app.post('/api/getPhoto/:id' , function(req , res){
     var A = mongoose.model('images', imageSchema);
     A.findOne({
       _id : req.params.id
     } , function(err , image){
       if(err) res.send(err);
+
+      var clientIp = requestIp.getClientIp(req);
+      console.log("TU ip : "  + clientIp);
 
       res.send(image);
 
@@ -228,6 +232,47 @@ app.delete('/api/delete_photo/:id', apiRoutess, function(req , res){
       if(err)
         res.send(err);
         fs.unlinkSync(image.path);
-      res.json(image);
+      res.json({
+        success : true,
+        message : "Se eliminó la imagen correctamente."
+      });
+  })
+});
+
+app.post('/api/approve/:id', apiRoutess, function(req , res){
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+
+  A.findOneAndUpdate({
+    _id : req.params.id
+  },{$set : {
+   index : true
+  }
+}, function(err , image){
+      if(err)
+        res.send(err);
+      res.json({
+        success : true,
+        message : "Se aprobó la imagen."
+      });
+  })
+});
+
+
+app.post('/api/vote/:id', function(req , res){
+var sum = 0;
+
+  A.findOneAndUpdate({
+    _id : req.params.id
+  },{$set : {
+   votes : {positives : req.body.votePos , negatives  : req.body.voteNeg}
+  }
+}, function(err , image){
+      if(err)
+        res.send(err);
+      res.json({
+        success : true,
+        message : "Se voto la imagen."
+      });
   })
 });
