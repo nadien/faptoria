@@ -179,9 +179,6 @@ app.post('/api/getPhoto/:id' , function(req , res){
     } , function(err , image){
       if(err) res.send(err);
 
-      var clientIp = requestIp.getClientIp(req);
-      console.log("TU ip : "  + clientIp);
-
       res.send(image);
 
     });
@@ -261,7 +258,9 @@ app.post('/api/approve/:id', apiRoutess, function(req , res){
 
 app.post('/api/vote/:id', function(req , res){
 var sum = 0;
-
+ var clientIp = requestIp.getClientIp(req);
+      console.log("TU ip : "  + clientIp);
+      
   A.findOneAndUpdate({
     _id : req.params.id
   },{$set : {

@@ -21,29 +21,45 @@ angular.module('faptoriaApp')
                 $scope.mensaje = "falló la llamada al servidor";
               });
 
+var dayAndMonth = new Date();
     $scope.votarPos = function(id ){
-    $scope.image.votes.positives++;
-    $http.post('/api/vote/' + id , {votePos : $scope.image.votes.positives , voteNeg : $scope.image.votes.negatives})
+    
+    if(window.localStorage.getItem("Voted:"+id) == dayAndMonth.getDate() + "" +  dayAndMonth.getMonth() ){
+     $scope.disableNeg = true;
+     $scope.disablePos = true;
+    }else{
+      $scope.image.votes.positives++;
+     $http.post('/api/vote/' + id , {votePos : $scope.image.votes.positives , voteNeg : $scope.image.votes.negatives})
          .success(function(data ){
               $scope.message = data;
+              $scope.disableNeg = true;
+                displayBlock(id);
+                
          })
          .error(function(data){
              $scope.mensaje = "falló la llamada al servidor";
            });
       //$scope.image.votes.positives++;
+      }
     }
-
- $scope.votarNeg = function(id , num){
+ $scope.votarNeg = function(id ){
+  if(window.localStorage.getItem("Voted:"+id) == dayAndMonth.getDate() + "" +  dayAndMonth.getMonth()){
+   $scope.disablePos = true;
+   $scope.disableNeg = true;
+  }else{
     $scope.image.votes.negatives++;
-    $http.post('/api/vote/' + id , {voteNeg : $scope.image.votes.negatives , votePos : $scope.image.votes.positives})
+     $http.post('/api/vote/' + id , {voteNeg : $scope.image.votes.negatives , votePos : $scope.image.votes.positives})
          .success(function(data ){
-              $scope.message = data;
+                $scope.message = data;
+                displayBlock(id);
+                $scope.disablePos = true;
          })
          .error(function(data){
              $scope.mensaje = "falló la llamada al servidor";
            });
       //$scope.image.votes.positives++;
-    }
+      }
+  }
 
     $http.post('/api/getRole' , {})
                 .success(function(data , headers ){
@@ -74,5 +90,13 @@ angular.module('faptoriaApp')
 
 
 
+//Create elements and instance events
+function displayBlock(id){
+ 
+  window.localStorage["Voted:"+id] = dayAndMonth.getDate() + "" +  dayAndMonth.getMonth() ;
+ // $scope.disableVote = true;
+ // setCookie("cookieVotes","1",1);
+
+  }
 
   });

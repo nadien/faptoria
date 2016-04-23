@@ -12,8 +12,8 @@
       <a href="#/tablero/{{img._id}}" > <img ng-src="{{img.path}}" alt="{{img.title}}"></a>
        <div class="caption">
          <center>
-         <span ng-click="votarPos(img._id , img.votes.positives , img.votes.negatives)" class="glyphicon glyphicon-thumbs-up gi-2x" style="color:green"><span ng-hide="!value">{{img.votes.positives}}</span> <span ng-show="!value">{{votePositive}}</span></span> 
-          &nbsp <span ng-click="votarNeg(img._id)" class="glyphicon glyphicon-thumbs-down gi-2x" style="color:red">{{img.votes.negatives }}</span>
+         <span class="glyphicon glyphicon-thumbs-up gi-1x pull-right" style="color:green">{{img.votes.positives}}</span> 
+          <span class="glyphicon glyphicon-thumbs-down gi-1x pull-right" style="color:red">{{img.votes.negatives }}</span>
          </center>
          <hr/>
          <div class="row">

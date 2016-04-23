@@ -6,7 +6,14 @@
  * Base structure
  */
 
+.buttonVotes{
+  background: none;
+  border : 0;
+  box-shadow: none;
+  font-size: 100px;
+}
 
+ .gi-1x{font-size: 1.5em;}
  .gi-2x{font-size: 2em;}
  .gi-3x{font-size: 3em;}
  .gi-4x{font-size: 4em;}

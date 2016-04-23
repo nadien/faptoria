@@ -13,8 +13,8 @@
     <img ng-src="{{img.path}}" alt="{{img.title}}">
        <div class="caption">
          <center>
-         <span ng-click="votar()" ng-model="votes" class="glyphicon glyphicon-thumbs-up gi-2x" style="color:green">{{img.votes.positives }}</span>
-          &nbsp <span class="glyphicon glyphicon-thumbs-down gi-2x" style="color:red">{{img.votes.negatives }}</span>
+         <div ng-click="votarPos(img._id)" ng-model="votes" ng-disabled="disablePos" class="glyphicon glyphicon-thumbs-up gi-2x buttonVotes" style="color:green">{{img.votes.positives }}</div>
+          &nbsp <div ng-click="votarNeg(img._id)" class="glyphicon glyphicon-thumbs-down gi-2x buttonVotes" ng-disabled="disableNeg" style="color:red">{{img.votes.negatives }}</div>
          </center>
          <div class="row">
         <input ng-click="approve(img._id)" value="Aprobar imagen" class="btn btn-success pull-left" ng-show="value">

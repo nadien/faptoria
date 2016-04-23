@@ -42,31 +42,5 @@ angular.module('faptoriaApp')
                     });
 
                 }
-                $scope.value = true;
-  $scope.votarPos = function(id, pos, neg){
-    $scope.votePositive = pos;
-    $scope.votePositive+= 1;
-    $scope.value = false;
-    $http.post('/api/vote/' + id , {votePos : $scope.votePositive , voteNeg : neg})
-         .success(function(data ){
-              $scope.message = data;
-         })
-         .error(function(data){
-             $scope.mensaje = "falló la llamada al servidor";
-           });
-      //$scope.image.votes.positives++; 
-    }
-
- $scope.votarNeg = function(id , num){
-    $scope.img.votes.negatives++;
-    $http.post('/api/vote/' + id , {voteNeg : $scope.img.votes.negatives , votePos : $scope.img.votes.positives})
-         .success(function(data ){
-              $scope.message = data;
-         })
-         .error(function(data){
-             $scope.mensaje = "falló la llamada al servidor";
-           });
-      //$scope.image.votes.positives++;
-    }
-
+     
   });
