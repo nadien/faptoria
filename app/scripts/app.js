@@ -47,7 +47,8 @@ var app = angular
         controller : 'homeController'
       },
       'sidebar' : {
-        templateUrl : '/views/sidebar.html'
+        templateUrl : '/views/sidebar.html',
+        controller : 'sidebarCtrl'
       }
      }
    })
@@ -62,7 +63,8 @@ var app = angular
         controller : 'BoardCtrl'
       },
       'sidebar' : {
-        templateUrl : '/views/sidebar.html'
+        templateUrl : '/views/sidebar.html',
+        controller : 'sidebarCtrl'
       }
      }
    })
@@ -102,7 +104,8 @@ var app = angular
         controller : 'ModerarCtrl'
       },
       'sidebar' : {
-        templateUrl : '/views/sidebar.html'
+        templateUrl : '/views/sidebar.html',
+        controller : 'sidebarCtrl'
       }
     }
   })
