@@ -6,17 +6,36 @@
                        <p> <h2> Subir imagen </h2></p>
                          {{message}}
                           <br>
-                   <form ng-show="value" enctype='multipart/form-data'  action="/api/upload" method="post" >
-                     <label> Titulo(opcional) </label> <input type='text' name='titulo' ng-model="formImg.titulo" >
-                     <label> Tags </label> <input type='text' name='tags' ng-model="formImg.tags" >
-                   <input type='file' name='userPhoto' accept=".png, .jpg, .jpeg , .gif" />
-                   <input type='text' name='idImage' ng-model="formImg.BoxId" style="display: none">
-                   <input type="submit" value="Upload Image" class="btn btn-danger" ng-disabled="!value">
-                   </form>
-                   <!-- createToDo() WILL CREATE NEW TODOS -->
+               
+<form ng-show="value" enctype='multipart/form-data'  action="/api/upload" method="post">
+  <fieldset class="form-group">
+    <label >Título</label>
+    <input type="text" class="form-control" name='title' ng-model="formImg.titulo" placeholder="Se original.." maxlength="20">
+    <small class="text-muted">20 caracteres máximo</small>
+  </fieldset>
+  <fieldset class="form-group">
+    <label >Etiquetas</label>
+    <input type="text" class="form-control"  name='tags' ng-model="formImg.tags" placeholder="sexy, desnuda" required>
+  </fieldset> 
+  <small class="text-muted">Puedes separarlas por comas</small>
+
+
+<input type='text' name='idImage' ng-model="formImg.BoxId" style="display: none">
+  <br/>
+  <fieldset class="form-group">
+      <br/>
+    <label >Archivo</label>
+    <input type='file' name='userPhoto' accept=".png, .jpg, .jpeg , .gif">
+    <small class="text-muted">Limite de iamgen 16 MB.</small>
+  </fieldset>
+ 
+  <button type="submit" class="btn btn-danger">Subir imagen</button>
+</form>
+
                  </div>
            </div>
        </div>
+
 
 
 <!--

@@ -123,7 +123,9 @@ app.post('/api/upload', upload, function(req,res){
 
              var a = new A;
             // a.img.data = fs.readFileSync(imgPath);
-             a.title = req.file.originalname;
+            console.log(JSON.stringify(req.body))
+            a.tags = req.body.tags;
+             a.title = req.body.title;
              a.path = imgPath;
              a.size = req.file.size;
              a.id_user = req.body.idImage;
@@ -185,6 +187,19 @@ app.post('/api/getPhoto/:id' , function(req , res){
 
 });
 
+app.post('/api/getPhotosModerate' , function(req , res){
+ 
+  var A = mongoose.model('images', imageSchema);
+    A.find({
+      index : false
+    } , function(err , image){
+      if(err) res.send(err);
+
+      res.send(image);
+
+    });
+
+});
 
 var apiRoutess =  express.Router();
 
@@ -256,7 +271,7 @@ app.post('/api/approve/:id', apiRoutess, function(req , res){
 });
 
 
-app.post('/api/vote/:id', function(req , res){
+app.post('/api/vote/:id', apiRoutess , function(req , res){
 var sum = 0;
  var clientIp = requestIp.getClientIp(req);
       console.log("TU ip : "  + clientIp);

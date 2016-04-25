@@ -10,6 +10,7 @@
 angular.module('faptoriaApp')
   .controller('BoardCtrl', function ($http , $scope) {
   	var ruta = (window.location.hash).split("/") ;
+    var token =  window.localStorage['fd4deef86e4149be2649a12aac29484a'];
 
 		$http.post('/api/getPhoto/' + ruta[2], {})
             .success(function(data , headers ){
@@ -28,16 +29,20 @@ var dayAndMonth = new Date();
      $scope.disableNeg = true;
      $scope.disablePos = true;
     }else{
-      $scope.image.votes.positives++;
+      
      $http.post('/api/vote/' + id , {votePos : $scope.image.votes.positives , voteNeg : $scope.image.votes.negatives})
          .success(function(data ){
+          $scope.image.votes.positives++;
               $scope.message = data;
               $scope.disableNeg = true;
                 displayBlock(id);
                 
          })
          .error(function(data){
-             $scope.mensaje = "falló la llamada al servidor";
+          if(data.success == false )
+            $scope.message = "Necesitas estar registrado para votar";
+          else
+             $scope.message = "falló la llamada al servidor";
            });
       //$scope.image.votes.positives++;
       }
@@ -47,20 +52,25 @@ var dayAndMonth = new Date();
    $scope.disablePos = true;
    $scope.disableNeg = true;
   }else{
-    $scope.image.votes.negatives++;
+   
      $http.post('/api/vote/' + id , {voteNeg : $scope.image.votes.negatives , votePos : $scope.image.votes.positives})
          .success(function(data ){
+           $scope.image.votes.negatives++;
                 $scope.message = data;
                 displayBlock(id);
                 $scope.disablePos = true;
          })
          .error(function(data){
-             $scope.mensaje = "falló la llamada al servidor";
+           if(data.success == false )
+            $scope.message = "Necesitas estar registrado para votar";
+          else
+             $scope.message = "falló la llamada al servidor";
            });
       //$scope.image.votes.positives++;
       }
   }
 
+if(token){
     $http.post('/api/getRole' , {})
                 .success(function(data , headers ){
 
@@ -73,7 +83,7 @@ var dayAndMonth = new Date();
                 .error(function(data){
                     $scope.mensaje = "falló la llamada al servidor";
                 });
-
+}
       $scope.delete = function(id){
         $http.delete('/api/delete_photo/' + id , {})
         .success(function(data  ){
