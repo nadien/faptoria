@@ -26,6 +26,16 @@ angular.module('faptoriaApp')
           .error(function(data){
               $scope.mensaje = "falló la llamada al servidor";
             });
-      }
+      };
+
+      $scope.addAd = function(){
+       $http.post('api/sidebar' , $scope.formAd)
+          .success(function(data){
+              alert(JSON.stringify(data));
+           })
+           .error(function(data){
+            $scope.message = "falló la llamada al servidor";
+           });
+      };
 
   });

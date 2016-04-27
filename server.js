@@ -13,7 +13,7 @@ var express = require('express'),
 var login = require('./app/scripts/middleware/User');
 var getToken = require('./app/scripts/middleware/getRole');
 var uploadImg = require('./app/scripts/middleware/Upload');
-
+var sidebar = require('./app/scripts/middleware/Sidebar');
 
     //..localhost/[name] <-- indica la base de datos a usar en mongdb
     mongoose.connect('mongodb://localhost/faptoria');
@@ -40,6 +40,7 @@ var uploadImg = require('./app/scripts/middleware/Upload');
 app.use(login);
 app.use(getToken);
 app.use(uploadImg);
+app.use(sidebar);
 
 
 // ************ All CRUDS methods will have only post *******************

@@ -9,5 +9,12 @@
  */
 angular.module('faptoriaApp')
   .controller('sidebarCtrl', function ($http , $scope) {
-  	$scope.sidebar = "Esto es un articulo";
+
+  		$http.post('/api/getArticles' , {})
+  		.success(function(data){
+  			$scope.articles = data;
+  		})
+  		.error(function(data){
+  			$scope.message = data;
+  		});
   });

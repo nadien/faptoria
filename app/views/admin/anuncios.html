@@ -16,39 +16,22 @@
         <div class="col-sm-3 col-md-2 sidebar" style="position: fixed ">
           <ul class="nav nav-sidebar">
             <li ><a href="#/admin">Dashboard <span class="sr-only">(current)</span></a></li>
-            <li class="active"><a href="#/admin/usuarios">Usuarios</a></li>
-            <li><a href="#/admin/anuncios">Anuncios</a></li>
+            <li ><a href="#/admin/usuarios">Usuarios</a></li>
+            <li class="active"><a href="#/admin/anuncios">Anuncios</a></li>
             <li><a href="#">Export</a></li>
           </ul>
-          
+       
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" >
-          <h1 class="page-header">Dashboard</h1>
 
-            {{message}}
-          <h2 class="sub-header">Usuarios</h2>
-          <div class="table-responsive">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Email</th>
-                  <th>Nick</th>
-                  <th>Role</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr ng-repeat="user in message track by $index">
-                  <td ng-model="id">{{user._id}}</td>
-                  <td>{{user.email}}</td>
-                  <td>{{user.nick}}</td>
-                  <td>{{user.role}}</td>
-                  <td><a href="" ng-click="delete(user._id)"> X </a></td>
-                </tr>
-              </tbody>
-            </table>
+          <h2 class="sub-header">Anuncios</h2>
 
-          </div>
+          <form ng-submit="addAd()" enctype='multipart/form-data'>
+            <input type="text" name="title" ng-model="formAd.title"><br>
+            <textarea name="content" ng-model="formAd.content"></textarea>
+            <input type="submit" value="Enviar">
+          </form>
+
         </div>
       </div>
     </div>
