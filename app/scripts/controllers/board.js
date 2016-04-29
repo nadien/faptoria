@@ -29,13 +29,12 @@ var dayAndMonth = new Date();
      $scope.disableNeg = true;
      $scope.disablePos = true;
     }else{
-      
+      $scope.image.votes.positives++;
      $http.post('/api/vote/' + id , {votePos : $scope.image.votes.positives , voteNeg : $scope.image.votes.negatives})
          .success(function(data ){
-          $scope.image.votes.positives++;
               $scope.message = data;
               $scope.disableNeg = true;
-                displayBlock(id);
+             //   displayBlock(id);
                 
          })
          .error(function(data){
@@ -52,12 +51,12 @@ var dayAndMonth = new Date();
    $scope.disablePos = true;
    $scope.disableNeg = true;
   }else{
-   
+   $scope.image.votes.negatives++;
      $http.post('/api/vote/' + id , {voteNeg : $scope.image.votes.negatives , votePos : $scope.image.votes.positives})
          .success(function(data ){
-           $scope.image.votes.negatives++;
+           
                 $scope.message = data;
-                displayBlock(id);
+              //  displayBlock(id);
                 $scope.disablePos = true;
          })
          .error(function(data){

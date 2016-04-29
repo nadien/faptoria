@@ -7,7 +7,6 @@ var express = require('express'),
     jwt = require('jsonwebtoken'),
     util = require('util'),
     formidable = require('formidable');
-var requestIp = require('request-ip');
     module.exports = app;
 
 
@@ -33,7 +32,13 @@ var imageSchema = new Schema({
     votes : { positives : { type : Number , default : 0 } ,
              negatives : { type : Number , default : 0 } },
     id_user : { type : mongoose.Schema.Types.ObjectId, ref : 'User'}
+
 });
+
+var readyVote = mongoose.model( 'readyVote' ,{
+  id_user : String , 
+  id_image : String
+}); 
 
 /*
 var apiRoutes =  express.Router();
@@ -271,22 +276,113 @@ app.post('/api/approve/:id', apiRoutess, function(req , res){
 });
 
 
-app.post('/api/vote/:id', apiRoutess , function(req , res){
-var sum = 0;
- var clientIp = requestIp.getClientIp(req);
-      console.log("TU ip : "  + clientIp);
+var apiRoutesSimpleUsers =  express.Router();
+var id_userToken = "";
+apiRoutesSimpleUsers.use(function(req, res, next) {
+
+  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+
+  if (token) {
+
+    jwt.verify(token, app.get('gjwtScrt'), function(err, decoded) {
+      if (err) {
+        return res.json({ success: false, message: 'Falló la autenticación de token.' });
+      } else {
+        req.decoded = decoded;
+        //console.log(decoded);
+        id_userToken = decoded._doc._id;
+        next();
+      } 
       
-  A.findOneAndUpdate({
-    _id : req.params.id
-  },{$set : {
-   votes : {positives : req.body.votePos , negatives  : req.body.voteNeg}
+    });
+
+  } else {
+    // if there is no token
+    // return an error
+    return res.status(403).send({
+        success: false,
+        message: 'No hay token.'
+    });
+
   }
-}, function(err , image){
+});
+
+
+
+app.post('/api/vote/:id', apiRoutesSimpleUsers , function(req , res, next){
+
+  readyVote.findOne({
+    id_user :  id_userToken,
+    id_image : req.params.id
+  } , function(err , voted){
+      if(err) res.send(err);
+
+    if(voted){
+
+        if(req.params.id == voted.id_image && id_userToken == voted.id_user){
+         res.json({
+          success : false,
+          message : "Ya votaste la imagen"
+         });
+
+       }else{
+
+              A.findOneAndUpdate({
+              _id : req.params.id
+               },{$set : {
+            votes : {positives : req.body.votePos , negatives  : req.body.voteNeg}
+               }
+             }, function(err , image){
+               if(err)
+                 res.send(err);
+                 res.json({
+                   success : true,
+                   message : "Se votó la imagen."
+                 });
+              });
+   
+
+         readyVote.create({
+          id_image : req.params.id,
+          id_user : id_userToken
+          }, function(err , vote){
+         if(err) res.send(err);
+
+           });
+       }
+    }else{
+
+       A.findOneAndUpdate({
+        _id : req.params.id
+        },{$set : {
+         votes : {positives : req.body.votePos , negatives  : req.body.voteNeg}
+        }
+      }, function(err , image){
+
       if(err)
         res.send(err);
-      res.json({
-        success : true,
-        message : "Se voto la imagen."
+
+         res.json({
+          success : true,
+          message : "Se votó la imagen."
+       });
+
       });
-  })
+   
+
+      readyVote.create({
+         id_image : req.params.id,
+         id_user : id_userToken
+      }, function(err , vote){
+       if(err) res.send(err);
+
+         });
+      }
+
+     
+
+  });
+
+
 });
+
