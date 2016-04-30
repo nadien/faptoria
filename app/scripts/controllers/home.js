@@ -8,8 +8,12 @@
  * Controller of the faptoriaApp
  */
 angular.module('faptoriaApp')
-  .controller('homeController', function ($scope, $rootScope ,$http) {
+  .controller('homeController', function ($scope, $rootScope ,$http, toaster) {
 	
+$scope.pop = function(){
+            toaster.pop('note', "title", "text");
+        };
+
   $http.post('/api/getPhotos' , {})
             .success(function(data , headers ){
                   $scope.images = data;
@@ -35,6 +39,12 @@ angular.module('faptoriaApp')
                 $scope.delete = function(id){
                   $http.delete('/api/delete_photo/' + id , {})
                   .success(function(data , headers ){
+                    
+                    if(data.success == true)
+                      toaster.pop('note', "Éxito", "Se eliminó la imagen correctamente");
+                    else
+                      toaster.pop('note', "Falló", "Ya eliminaste la imagen.");
+
                       $scope.message = data;
                   })
                   .error(function(data){

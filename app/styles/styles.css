@@ -6,6 +6,10 @@
  * Base structure
  */
 
+.navbar-custom .navbar-backgrnd {
+    color: blue;
+}
+
 .buttonVotes{
   background: none;
   border : 0;

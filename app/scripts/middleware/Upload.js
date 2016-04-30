@@ -248,11 +248,21 @@ app.delete('/api/delete_photo/:id', apiRoutess, function(req , res){
    }, function(err , image){
       if(err)
         res.send(err);
+      if(image){
         fs.unlinkSync(image.path);
-      res.json({
+        res.json({
         success : true,
         message : "Se eliminó la imagen correctamente."
       });
+      }
+      else if(image == null){
+        res.json({
+          success : false,
+          message : "Ya se eliminó esta imagen."
+        });
+      }
+     
+
   })
 });
 

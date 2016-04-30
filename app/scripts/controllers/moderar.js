@@ -80,7 +80,7 @@ var dayAndMonth = new Date();
          .success(function(data ){
               $scope.message = data;
               $scope.disableNeg = true;
-                displayBlock(id);
+                
                 
          })
          .error(function(data){
@@ -98,7 +98,7 @@ var dayAndMonth = new Date();
      $http.post('/api/vote/' + id , {voteNeg : $scope.images[$scope.random].votes.negatives , votePos : $scope.images[$scope.random].votes.positives})
          .success(function(data ){
                 $scope.message = data;
-                displayBlock(id);
+               
                 $scope.disablePos = true;
          })
          .error(function(data){
