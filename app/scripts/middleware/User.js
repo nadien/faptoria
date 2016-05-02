@@ -60,7 +60,10 @@ var express = require('express'),
                   if(err)
                   res.send(err);
 
-                  res.json(users);
+                  res.json({
+                    success : true,
+                    message : "Registro exitoso."
+                  });
             })
          } else if(user.email == req.body.email){
            res.send("Este email ya se ha usado antes");

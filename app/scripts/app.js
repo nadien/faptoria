@@ -20,7 +20,8 @@ var app = angular
     'ngTouch',
     'ui.router',
     'ngFileUpload',
-    'toaster'
+    'toaster',
+    'noCAPTCHA'
   ]);
 
     app.run(["$rootScope" , function($rootScope ){
@@ -28,7 +29,10 @@ var app = angular
 
     }]);
 
-  app.config([ "$stateProvider", "$locationProvider", "$urlRouterProvider", "$httpProvider", function ( $stateProvider, $locationProvider, $urlRouterProvider, $httpProvider) {
+  app.config([ "$stateProvider", "$locationProvider", "$urlRouterProvider", "$httpProvider", "noCAPTCHAProvider", function ( $stateProvider, $locationProvider, $urlRouterProvider, $httpProvider, noCaptchaProvider) {
+
+    noCaptchaProvider.setSiteKey('6Lcr4h4TAAAAABAnPPNnJmanEY9dmV0zHDZgvYEW');
+    noCaptchaProvider.setTheme('dark');
 
     $urlRouterProvider.otherwise("/");
     const token = window.localStorage['fd4deef86e4149be2649a12aac29484a'];
