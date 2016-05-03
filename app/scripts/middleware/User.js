@@ -66,7 +66,10 @@ var express = require('express'),
                   });
             })
          } else if(user.email == req.body.email){
-           res.send("Este email ya se ha usado antes");
+           res.json({
+            success : false ,
+            message : "Este email ya se ha usado antes"
+          });
          }
       });
 

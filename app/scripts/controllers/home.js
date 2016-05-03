@@ -10,9 +10,7 @@
 angular.module('faptoriaApp')
   .controller('homeController', function ($scope, $rootScope ,$http, toaster) {
 	
-$scope.pop = function(){
-            toaster.pop('note', "title", "text");
-        };
+
 
   $http.post('/api/getPhotos' , {})
             .success(function(data , headers ){
@@ -53,4 +51,65 @@ $scope.pop = function(){
 
                 }
      
+
+    $scope.votarPos = function(id, votoNeg, key){
+      $scope.disableNeg = {};
+      $scope.disablePos = {};
+ 
+      $scope.contadorPos++;
+     $http.post('/api/vote/' + id , {votePos : $scope.contadorPos , voteNeg : votoNeg})
+         .success(function(data ){
+              $scope.message = data;
+
+              if(data.success == false){
+                $scope.contadorPos--;
+                $scope.disableNeg[key] = true;
+                $scope.disablePos[key] = true;
+              }
+              else if(data.success == true){
+              $scope.disableNeg[key] = true;
+              $scope.disablePos[key] = true;
+              }
+
+             //   displayBlock(id);
+                
+         })
+         .error(function(data){
+          if(data.success == false )
+            $scope.message = "Necesitas estar registrado para votar";
+          else
+             $scope.message = "falló la llamada al servidor";
+           });
+    }
+
+  $scope.votarNeg = function(id , votoPos, key){
+    $scope.disableNeg = {};
+    $scope.disablePos = {};
+
+   $scope.contadorNeg++;
+     $http.post('/api/vote/' + id , {voteNeg : $scope.contadorNeg , votePos : votoPos})
+         .success(function(data ){
+           
+                $scope.message = data;
+
+                 if(data.success == false){
+                $scope.contadorNeg--;
+                 $scope.disableNeg[key] = true;
+                  $scope.disablePos[key] = true;
+                }
+                else if(data.success == true){
+                $scope.disableNeg[key] = true;
+                $scope.disablePos[key] = true;
+                 }
+               
+         })
+         .error(function(data){
+           if(data.success == false )
+            $scope.message = "Necesitas estar registrado para votar";
+          else
+             $scope.message = "falló la llamada al servidor";
+           });
+  }
+
+
   });

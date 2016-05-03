@@ -24,15 +24,20 @@ angular.module('faptoriaApp')
 
     $scope.votarPos = function(id ){
     
-     $scope.disableNeg = true;
-     $scope.disablePos = true;
-   
       $scope.image.votes.positives++;
      $http.post('/api/vote/' + id , {votePos : $scope.image.votes.positives , voteNeg : $scope.image.votes.negatives})
          .success(function(data ){
               $scope.message = data;
-              $scope.disableNeg = true;
-             //   displayBlock(id);
+
+               if(data.success == false){
+                  $scope.image.votes.positives--;
+                  $scope.disableNeg = true;
+                  $scope.disablePos = true;
+               }
+              else if(data.success == true){
+                $scope.disableNeg = true;
+                $scope.disablePos = true;
+              }
                 
          })
          .error(function(data){
@@ -44,15 +49,22 @@ angular.module('faptoriaApp')
     }
 
  $scope.votarNeg = function(id ){
-   $scope.disablePos = true;
-   $scope.disableNeg = true;
-
+ 
    $scope.image.votes.negatives++;
      $http.post('/api/vote/' + id , {voteNeg : $scope.image.votes.negatives , votePos : $scope.image.votes.positives})
          .success(function(data ){
            
                 $scope.message = data;
-                $scope.disablePos = true;
+                 if(data.success == false){
+                 $scope.image.votes.negatives--;
+                 $scope.disableNeg = true;
+                 $scope.disablePos = true;
+               }
+                   else if(data.success == true){
+                   $scope.disableNeg = true;
+                   $scope.disablePos = true;
+                  }
+                
          })
          .error(function(data){
            if(data.success == false )
@@ -92,13 +104,5 @@ if(token){
 
 
 
-//Create elements and instance events
-function displayBlock(id){
- 
-  window.localStorage["Voted:"+id] = dayAndMonth.getDate() + "" +  dayAndMonth.getMonth() ;
- // $scope.disableVote = true;
- // setCookie("cookieVotes","1",1);
-
-  }
 
   });

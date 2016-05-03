@@ -107,7 +107,7 @@ apiRoutes.use(function(req, res, next) {
 });
 */
 
-var upload = multer({ storage : storage}).single('userPhoto');
+var upload = multer({ storage : storage , limits : {fileSize : 1000000} }).single('userPhoto');
   var user = mongoose.model('user', imageSchema);
 
 app.post('/api/upload', upload, function(req,res){

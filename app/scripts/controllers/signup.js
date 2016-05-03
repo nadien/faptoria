@@ -8,17 +8,26 @@
  * Controller of the faptoriaApp
  */
 angular.module('faptoriaApp')
-  .controller('SignupCtrl', function ($scope , $http) {
+  .controller('SignupCtrl', function ($scope , $http, toaster) {
 
     $scope.signup = function(){
+
+  if($scope.gRecaptchaResponse){
           $http.post('/api/signup' , $scope.formSignup)
             .success(function(data , headers ){
-                $scope.message = data;
+                $scope.message = data.message;
+                if(data.success == true){
+                toaster.pop('note', "Éxito", "Te registraste con éxito.");
+                setTimeout(window.location.href = "/", 1000);
+              }
             })
             .error(function(data){
-                $scope.mensaje = "falló la llamada al servidor";
+                $scope.message = "falló la llamada al servidor";
               });
+          }else if(!$scope.gRecaptchaResponse){
+            toaster.pop('note', "Error", "Comprueba que no eres un robot.");
+          }
      }
-
+  
 
   });
