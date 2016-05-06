@@ -57,6 +57,7 @@ var app = angular
       }
      }
    })
+   
    .state('tablero' , {
       url : '/tablero/:name' ,
       views : {

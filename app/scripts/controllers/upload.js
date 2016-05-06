@@ -15,9 +15,18 @@ if(token){
     $http.post('/api/getRole' , {})
       .success(function(data , headers ){
 
-          $scope.formImg = { BoxId : data.userData._doc._id};
-          if(data.userData._doc.role)
+          
+           if(data.success == false){
+             $scope.message = "Tienes que registrarte para subir imagen" ;
+             $scope.value = false;
+          }
+          
+          if(data.userData)
+           if(data.userData._doc.role){
             $scope.value = true;
+            $scope.formImg = { BoxId : data.userData._doc._id};
+          }
+          
       })
       .error(function(data){
           $scope.message = "falló la llamada al servidor";

@@ -17,9 +17,12 @@
          <div class="row">
         <input ng-click="delete(image._id)" value="Eliminar imagen" class="btn btn-danger pull-right" ng-show="value">
       </div>
-      <div class="row">
-         <p>Tags: </p>  uno ,dos ,tres {{message}}
-       </div>
+   
+         <p>Tags: </p>  
+         <ol class="breadcrumb">
+            <li>{{image.tags}}</li>
+         </ol> 
+      
 
        </div>
      </div>

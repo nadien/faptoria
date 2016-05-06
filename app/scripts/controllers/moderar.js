@@ -8,7 +8,7 @@
  * Controller of the faptoriaApp
  */
 angular.module('faptoriaApp')
-  .controller('ModerarCtrl', function ($scope , $http) {
+  .controller('ModerarCtrl', function ($scope , $http, toaster) {
     var token =  window.localStorage['fd4deef86e4149be2649a12aac29484a'];
 
     $scope.show = true;
@@ -40,13 +40,98 @@ angular.module('faptoriaApp')
               .error(function(data){
                   $scope.mensaje = "falló la llamada al servidor";
               });
-            }
+
+
+    $scope.votarPos = function(id ){
+    
+         $scope.images[$scope.random].votes.positives++;
+     $http.post('/api/vote/' + id , {votePos : $scope.images[$scope.random].votes.positives , voteNeg : $scope.images[$scope.random].votes.negatives})
+         .success(function(data ){
+             
+
+                     if(data.message == "Falló la autenticación de token."){
+                        window.localStorage.removeItem('fd4deef86e4149be2649a12aac29484a');
+                        window.location.reload();
+                     }
+
+               if(data.success == false){
+                 $scope.images[$scope.random].votes.positives--;
+                  $scope.disableNeg = true;
+                  $scope.disablePos = true;
+               }
+              else if(data.success == true){
+                $scope.disableNeg = true;
+                $scope.disablePos = true;
+              }
+                
+         })
+         .error(function(data){
+          if(data.success == false )
+            $scope.message = "Necesitas estar registrado para votar";
+          else
+             $scope.message = "falló la llamada al servidor";
+           });
+    }
+
+
+ $scope.votarNeg = function(id ){
+
+     $scope.images[$scope.random].votes.negatives++;
+     $http.post('/api/vote/' + id , {voteNeg : $scope.images[$scope.random].votes.negatives , votePos : $scope.images[$scope.random].votes.positives})
+         .success(function(data ){
+              $scope.message = data;
+
+                     if(data.message == "Falló la autenticación de token."){
+                        window.localStorage.removeItem('fd4deef86e4149be2649a12aac29484a');
+                        window.location.reload();
+                     }
+
+               if(data.success == false){
+                 $scope.images[$scope.random].votes.negatives--;
+                  $scope.disableNeg = true;
+                  $scope.disablePos = true;
+               }
+              else if(data.success == true){
+                $scope.disableNeg = true;
+                $scope.disablePos = true;
+              }
+                
+         })
+         .error(function(data){
+          if(data.success == false )
+            $scope.message = "Necesitas estar registrado para votar";
+          else
+             $scope.message = "falló la llamada al servidor";
+           });
+
+  }
+
+
+            }else {
+                $scope.votarPos = function(){
+                     toaster.pop('error', "Error", "Necesitas registrarte para votar");
+                     $scope.disableNeg = true;
+                    $scope.disablePos = true; 
+                }
+                $scope.votarNeg = function(){
+                   toaster.pop('error', "Error", "Necesitas registrarte para votar");
+                   $scope.disableNeg = true;
+                  $scope.disablePos = true;
+                }
+            }     
+
  
 
     $scope.delete = function(id){
       $http.delete('/api/delete_photo/' + id , {})
       .success(function(data , headers ){
-          $scope.message = data;
+
+
+          if(data.message == "Falló la autenticación de token."){
+             window.localStorage.removeItem('fd4deef86e4149be2649a12aac29484a');
+             window.location.reload();
+            }
+          
           if(data.success == true)
             window.location.reload();
       })
@@ -59,7 +144,14 @@ angular.module('faptoriaApp')
     $scope.approve = function(id){
       $http.post('/api/approve/' + id , {})
       .success(function(data , headers ){
-          $scope.message = data;
+          
+         if(data.message == "Falló la autenticación de token."){
+           window.localStorage.removeItem('fd4deef86e4149be2649a12aac29484a');
+           window.location.reload();
+         }
+
+          if(data.success == true)
+            window.location.reload();
       })
       .error(function(data){
           $scope.mensaje = "falló la llamada al servidor";
@@ -67,54 +159,5 @@ angular.module('faptoriaApp')
 
     }
 
-
-var dayAndMonth = new Date();
-    $scope.votarPos = function(id ){
-    
-    if(window.localStorage.getItem("Voted:"+id) == dayAndMonth.getDate() + "" +  dayAndMonth.getMonth() ){
-     $scope.disableNeg = true;
-     $scope.disablePos = true;
-    }else{
-      $scope.images[$scope.random].votes.positives++;
-     $http.post('/api/vote/' + id , {votePos : $scope.images[$scope.random].votes.positives , voteNeg : $scope.images[$scope.random].votes.negatives})
-         .success(function(data ){
-              $scope.message = data;
-              $scope.disableNeg = true;
-                
-                
-         })
-         .error(function(data){
-             $scope.mensaje = "falló la llamada al servidor";
-           });
-      //$scope.image.votes.positives++;
-      }
-    }
- $scope.votarNeg = function(id ){
-  if(window.localStorage.getItem("Voted:"+id) == dayAndMonth.getDate() + "" +  dayAndMonth.getMonth()){
-   $scope.disablePos = true;
-   $scope.disableNeg = true;
-  }else{
-    $scope.images[$scope.random].votes.negatives++;
-     $http.post('/api/vote/' + id , {voteNeg : $scope.images[$scope.random].votes.negatives , votePos : $scope.images[$scope.random].votes.positives})
-         .success(function(data ){
-                $scope.message = data;
-               
-                $scope.disablePos = true;
-         })
-         .error(function(data){
-             $scope.mensaje = "falló la llamada al servidor";
-           });
-      //$scope.image.votes.positives++;
-      }
-  }
-
-//Create elements and instance events
-function displayBlock(id){
- 
-  window.localStorage["Voted:"+id] = dayAndMonth.getDate() + "" +  dayAndMonth.getMonth() ;
- // $scope.disableVote = true;
- // setCookie("cookieVotes","1",1);
-
-  }
 
   });
