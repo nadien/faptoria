@@ -8,7 +8,7 @@
  * Controller of the faptoriaApp
  */
 angular.module('faptoriaApp')
-  .controller('DashboardCtrl', function ($scope, $http) {
+  .controller('DashboardCtrl', function ($scope, $http, $rootScope) {
 
     $http.post('/api/users' , {})
         .success(function(data , headers ){
@@ -38,4 +38,16 @@ angular.module('faptoriaApp')
            });
       };
 
+      $rootScope.globalShow = false;
+      $scope.activateGlobalShow = function(){
+          $rootScope.globalShow = true;
+      }
+
+
+  })
+
+  .filter('addWidth' , function(){
+    return function(text){
+      var msg = text.replace( /(.)(>$)/g , "\"width=100%\"$1" );
+    }
   });

@@ -26,6 +26,7 @@ var app = angular
 
     app.run(["$rootScope" , function($rootScope ){
 
+      //$rootScope.globalShow = false;
 
     }]);
 

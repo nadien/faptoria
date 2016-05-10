@@ -17,22 +17,17 @@
           <ul class="nav nav-sidebar">
             <li ><a href="#/admin">Dashboard <span class="sr-only">(current)</span></a></li>
             <li ><a href="#/admin/usuarios">Usuarios</a></li>
-            <li class="active"><a href="#/admin/anuncios">Anuncios</a></li>
-            <li ><a href="#/admin/settings">Configuraciones</a></li>
+            <li ><a href="#/admin/anuncios">Anuncios</a></li>
+            <li class="active"><a href="#/admin/settings">Configuraciones</a></li>
           </ul>
        
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" >
 
-          <h2 class="sub-header">Anuncios</h2>
+          <h2 class="sub-header">Configuraciones</h2>
 
-          <form ng-submit="addAd()" enctype='multipart/form-data'>
-            <input type="text" name="title" class="form-control" ng-model="formAd.title" ><br>
-            <textarea name="content" ng-model="formAd.content" class="form-control" required autofocus></textarea>
-            <br/>
-            <input class="btn btn-lg btn-primary btn-block" type="submit" value="Enviar">
-
-          </form>
+          <input type="radio" ng-click="activateGlobalShow()"></input>
+         
 
         </div>
       </div>
