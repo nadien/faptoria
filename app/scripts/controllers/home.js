@@ -14,13 +14,31 @@ angular.module('faptoriaApp')
 
   $http.post('/api/getPhotos' , {})
             .success(function(data , headers ){
-                  $scope.images = data;
+                  $scope.imagesQ = data;
+                    
+
+                    $scope.currentPage = 1
+                    ,$scope.numPerPage = 5
+                    ,$scope.maxSize = 10;
+
+
+                  $scope.$watch('currentPage + numPerPage', function() {
+                  var begin = (($scope.currentPage - 1) * $scope.numPerPage)
+                  , end = begin + $scope.numPerPage;
+    
+                  $scope.images = data.slice(begin, end);
+
+                    });
              })
             .error(function(data){
                 $scope.mensaje = "falló la llamada al servidor";
               });
 
-if(token){
+
+
+              
+
+  if(token){
        $http.post('/api/getRole' , {})
              .success(function(data , headers ){
              
@@ -137,8 +155,6 @@ if(token){
 
                 }
      
-
-   
-
+ 
 
   });

@@ -21,7 +21,8 @@ var app = angular
     'ui.router',
     'ngFileUpload',
     'toaster',
-    'noCAPTCHA'
+    'noCAPTCHA',
+    'ui.bootstrap'
   ]);
 
     app.run(["$rootScope" , function($rootScope ){

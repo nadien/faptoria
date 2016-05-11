@@ -57,15 +57,13 @@
    </div>
  </div>
 
-         <nav>
-           <ul class="pager">
-             <li><a href="/">Previous</a></li>
-             <li><a href="/">Next</a></li>
-           </ul>
-         </nav>
+          <h1>Todos</h1>
+    <h4>{{imagesQ.length}} total</h4>
+   
+
+    <uib-pagination total-items="imagesQ.length" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" force-ellipses="true"></uib-pagination>
 
        </div><!-- /.blog-main -->
-
 
 
      </div><!-- /.row -->
