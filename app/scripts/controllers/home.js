@@ -18,7 +18,7 @@ angular.module('faptoriaApp')
                     
 
                     $scope.currentPage = 1
-                    ,$scope.numPerPage = 5
+                    ,$scope.numPerPage = 10
                     ,$scope.maxSize = 10;
 
 
