@@ -22,7 +22,8 @@ var app = angular
     'ngFileUpload',
     'toaster',
     'noCAPTCHA',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'bw.paging'
   ]);
 
     app.run(["$rootScope" , function($rootScope ){
@@ -59,7 +60,24 @@ var app = angular
       }
      }
    })
-   
+
+    .state('/page' , {
+      url : '/page/:id' ,
+      views : {
+        'header1' : {
+          templateUrl : '/views/header.html'
+      },
+      'contenido' : {
+        templateUrl : '/views/home.html',
+        controller : 'homeController'
+      },
+      'sidebar' : {
+        templateUrl : '/views/sidebar.html',
+        controller : 'sidebarCtrl'
+      }
+     }
+   })
+
    .state('tablero' , {
       url : '/tablero/:name' ,
       views : {

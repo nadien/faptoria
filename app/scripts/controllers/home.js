@@ -8,27 +8,36 @@
  * Controller of the faptoriaApp
  */
 angular.module('faptoriaApp')
-  .controller('homeController', function ($scope, $rootScope ,$http, toaster) {
+  .controller('homeController', function ($scope, $rootScope ,$http, toaster, $log) {
 	var token =  window.localStorage['fd4deef86e4149be2649a12aac29484a'];
 
+$scope.DoCtrlPagingAct = function(text, page, pageSize, total) {
+        $log.info({
+            text: text,
+            page: page,
+            pageSize: pageSize,
+            total: total
+        });
+        
+    };
 
   $http.post('/api/getPhotos' , {})
             .success(function(data , headers ){
-                  $scope.imagesQ = data;
+                  $scope.images = data;
                     
 
                     $scope.currentPage = 1
-                    ,$scope.numPerPage = 10
+                    ,$scope.numPerPage = 1
                     ,$scope.maxSize = 10;
 
 
-                  $scope.$watch('currentPage + numPerPage', function() {
+               /*   $scope.$watch('currentPage + numPerPage', function() {
                   var begin = (($scope.currentPage - 1) * $scope.numPerPage)
                   , end = begin + $scope.numPerPage;
     
                   $scope.images = data.slice(begin, end);
 
-                    });
+                    }); */
              })
             .error(function(data){
                 $scope.mensaje = "falló la llamada al servidor";

@@ -3,6 +3,9 @@
 
      <div class="blog-header" >
      
+
+
+
      </div>
 
      <br/>
@@ -10,7 +13,7 @@
        <div class="col-sm-8 blog-main">
          <div class="row">
           <!-- imagenes -->
-   <div class="col-sm-12 col-md-12" ng-repeat="(key ,img) in images |  orderBy: '-created_at':reverse | limitTo: 10 "  ng-if="img.index" width="100%">
+   <div class="col-sm-12 col-md-12" ng-repeat="(key ,img) in images |  orderBy: '$index':true | limitTo: 10 "  ng-if="img.index" width="100%">
      <div class="thumbnail" >
       <a href="#/tablero/{{img._id}}" > <img ng-src="{{img.path}}" alt="{{img.title}}"></a>
        <div class="caption ">
@@ -58,10 +61,22 @@
  </div>
 
           <h1>Todos</h1>
-    <h4>{{imagesQ.length}} total</h4>
+    <h4>{{images.length}} total</h4>
    
 
-   <center> <uib-pagination total-items="imagesQ.length" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" force-ellipses="true"></uib-pagination> </center>
+   <center> <uib-pagination total-items="image.length" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" force-ellipses="true"></uib-pagination> </center>
+
+
+<!-- Simple Example -->
+<div paging
+  page="1" 
+  page-size="10" 
+  total="1000" 
+  pg-href="/#/page/{page}"
+  paging-action="DoCtrlPagingAct('Paging Clicked', page, pageSize, total)">
+</div> 
+
+
 
        </div><!-- /.blog-main -->
 

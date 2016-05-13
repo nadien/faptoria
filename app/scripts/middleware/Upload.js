@@ -155,25 +155,25 @@ app.post('/api/upload', upload, function(req,res){
     });
 
 
-  /* upload(req,res,function(err){
-             if(err){
-                  res.json({error_code:1,err_desc:err});
-                  return;
-             }
-              res.json({error_code:req.files });
-         }); */
-
 
 });
 var A = mongoose.model('images', imageSchema);
 app.post('/api/getPhotos' , function(req , res){
 
   var a = new A;
+  var q ;
   A.find().lean().exec(function(err , image){
           if(err)throw err;
+          q = image;
+      }) 
 
-          //res.contentType(doc.img.contentType);
-          res.json(image);
+  A.find()
+   .skip(17)
+      .limit(5)
+      .populate('stuff')
+      .exec(function (err, image) { 
+            res.json(image);
+            console.log(q.length)
       })
 
 });
