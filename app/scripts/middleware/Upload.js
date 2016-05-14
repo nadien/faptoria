@@ -128,7 +128,7 @@ app.post('/api/upload', upload, function(req,res){
 
              var a = new A;
             // a.img.data = fs.readFileSync(imgPath);
-            console.log(JSON.stringify(req.body))
+            //console.log(JSON.stringify(req.body))
             a.tags = req.body.tags;
              a.title = req.body.title;
              a.path = imgPath;
@@ -157,25 +157,42 @@ app.post('/api/upload', upload, function(req,res){
 
 
 });
+
 var A = mongoose.model('images', imageSchema);
+var q ;
+
 app.post('/api/getPhotos' , function(req , res){
 
   var a = new A;
-  var q ;
-  A.find().lean().exec(function(err , image){
+    A.find().lean().exec(function(err , image){
           if(err)throw err;
+          res.json(image);
           q = image;
-      }) 
+      }); 
 
-  A.find()
-   .skip(17)
-      .limit(5)
-      .populate('stuff')
-      .exec(function (err, image) { 
-            res.json(image);
-            console.log(q.length)
-      })
+});
 
+
+
+app.post('/api/getPhotos/page/:number' , function(req , res){
+
+  if((q.length - (req.params.number * 10)) >= 0 ){
+     A.find()
+        .skip(q.length - (req.params.number * 10) )
+        .limit(10)
+        .populate('stuff')
+        .exec(function (err, image) { 
+            res.json(image);     
+        })
+  }else{
+    A.find()
+        .skip(0)
+        .limit(req.params.number % 10)
+        .populate('stuff')
+        .exec(function (err, image) { 
+            res.json(image);     
+        })
+  }
 });
 
 

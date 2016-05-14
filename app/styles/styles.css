@@ -5,6 +5,17 @@
 /*
  * Base structure
  */
+.navbar-brand {
+  position: absolute;
+}
+
+
+/* DEMO example styles for logo image */
+.navbar-brand {
+  padding: 0px;
+  margin-top: -5px;
+}
+
 
 .navbar-custom .navbar-backgrnd {
     color: blue;

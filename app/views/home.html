@@ -5,7 +5,6 @@
      
 
 
-
      </div>
 
      <br/>
@@ -60,22 +59,16 @@
    </div>
  </div>
 
-          <h1>Todos</h1>
-    <h4>{{images.length}} total</h4>
-   
+    <center>
+    <div paging
+      page="currentPage" 
+      page-size="10" 
+      total="total"
+      pg-href="/#/page/{page}"
+      paging-action="DoCtrlPagingAct('Paging Clicked', page, pageSize, total)">
+    </div> 
 
-   <center> <uib-pagination total-items="image.length" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" force-ellipses="true"></uib-pagination> </center>
-
-
-<!-- Simple Example -->
-<div paging
-  page="1" 
-  page-size="10" 
-  total="1000" 
-  pg-href="/#/page/{page}"
-  paging-action="DoCtrlPagingAct('Paging Clicked', page, pageSize, total)">
-</div> 
-
+  </center>
 
 
        </div><!-- /.blog-main -->
