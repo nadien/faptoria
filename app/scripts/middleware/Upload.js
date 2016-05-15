@@ -138,10 +138,11 @@ app.post('/api/upload', upload, function(req,res){
              a.save(function (err, a) {
                if (err) throw err;
 
-               res.json({
+                res.redirect('/#/subir'); 
+               /*res.json({
                  success : true,
                imageData : a
-               });
+               });*/
              });
        // return the information including token as JSON
 

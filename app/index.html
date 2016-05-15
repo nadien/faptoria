@@ -58,7 +58,7 @@
       <div class="container">
         <p><span class="glyphicon glyphicon-heart"></span> Derechos reservados Faptoria @2016</p>
       </div>
-    </div>
+     </div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
@@ -71,6 +71,8 @@
        ga('send', 'pageview');
     </script>
 
+
+    
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -97,6 +99,7 @@
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        
         <script src="scripts/app.js"></script>
         <script src="scripts/paging.js"></script>
         <script src="scripts/pagingDirective.js"></script>
@@ -113,5 +116,24 @@
         <script src="scripts/controllers/sidebar.js"></script>
 
         <!-- endbuild -->
+
+          <!-- social -->
+
+        <script async defer src="//assets.pinterest.com/js/pinit.js"></script>
+          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+          <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6";
+          fjs.parentNode.insertBefore(js, fjs);
+          }(document, 'script', 'facebook-jssdk'));
+        </script>
+        <script src="https://apis.google.com/js/platform.js" async defer>
+         {lang: 'es-419'}
+        </script>
+
+         <!-- social -->
 </body>
 </html>

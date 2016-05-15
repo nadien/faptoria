@@ -172,6 +172,4 @@ $scope.DoCtrlPagingAct = function(text, page, pageSize, total) {
 
                 }
      
- 
-
   });

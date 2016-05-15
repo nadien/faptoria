@@ -34,7 +34,7 @@ angular.module('faptoriaApp')
             window.localStorage['fd4deef86e4149be2649a12aac29484a'] = data.token;
             window.localStorage['nombre'] = data.userData.nick;
             window.location.reload();
-          //  $timeout(alert(123) , 1000);
+          
             $scope.message = data;
           }else
             $scope.message = data;
