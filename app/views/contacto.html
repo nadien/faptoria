@@ -1,10 +1,20 @@
 <div id="todo-form" class="row">
-           <div class="col-sm-8 col-sm-offset-2 text-center">
-               <form>
-                   <div class="form-group">
-
+           <div class="col-sm-8 col-sm-offset-2 ">
+            <center>
                        <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
                       <h2> <p>¿Tienes alguna sugerencia? </p> <p> ¿Te gustaría ser moderador? </p> </h2>
-               </form>
+               
+
+				<form action="MAILTO:openarycorp@gmail.com" method="post" enctype="text/plain" class="form-signin">
+				E-mail:<br>
+				<input type="text" name="mail"  class="form-control"><br>
+				Comentario:<br>
+				<textarea name="comment"size="50" class="form-control"></textarea><br><br>
+				<button type="submit"  class="btn btn-danger"  value="Enviar" class="btn btn-danger">Enviar</button>
+				<button type="reset" value="Reset" class="btn " >Reset</button>
+				</form>
+				<sub> openarycorp@gmail.com</sub>
+      </center>
+      	<br/>
            </div>
        </div>

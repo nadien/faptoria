@@ -8,7 +8,7 @@
  * Controller of the faptoriaApp
  */
 angular.module('faptoriaApp')
-  .controller('LoginCtrl', function ($scope , $http, $rootScope) {
+  .controller('LoginCtrl', function ($scope , $http, $rootScope, toaster) {
 
 
 
@@ -22,7 +22,7 @@ angular.module('faptoriaApp')
                 window.location.reload();
                // $scope.message = data;
               }else
-                $scope.message = data;
+                toaster.pop('error', "Error", data);
             })
             .error(function(data){
                 $scope.mensaje = "falló la llamada al servidor";

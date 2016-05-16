@@ -34,7 +34,7 @@ var app = angular
 
   app.config([ "$stateProvider", "$locationProvider", "$urlRouterProvider", "$httpProvider", "noCAPTCHAProvider", function ( $stateProvider, $locationProvider, $urlRouterProvider, $httpProvider, noCaptchaProvider) {
 
-    noCaptchaProvider.setSiteKey('6Lcr4h4TAAAAABAnPPNnJmanEY9dmV0zHDZgvYEW');
+    noCaptchaProvider.setSiteKey('6LdSECATAAAAAAHr8wh0VEJP3K2S9zZfDPs5Nw4j');
     noCaptchaProvider.setTheme('dark');
 
     $urlRouterProvider.otherwise("/");

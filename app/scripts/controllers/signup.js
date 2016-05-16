@@ -18,7 +18,7 @@ angular.module('faptoriaApp')
                 $scope.message = data.message;
                 if(data.success == true){
                 toaster.pop('note', "Éxito", "Te registraste con éxito.");
-                setTimeout(window.location.href = "/", 1000);
+                setTimeout(window.location.href = "/#/Entrar", 1000);
               }
             })
             .error(function(data){
