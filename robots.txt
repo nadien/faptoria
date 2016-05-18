@@ -1,0 +1,3 @@
+# chicas.faptoria.org/
+
+User-agent: *

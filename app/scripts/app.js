@@ -1,13 +1,3 @@
-'use strict';
-
-/**
- * @ngdoc overview
- * @name faptoriaApp
- * @description
- * # faptoriaApp
- *
- * Main module of the application.
- */
 var app = angular
   .module('faptoriaApp', [
     'ngAnimate',
@@ -25,12 +15,6 @@ var app = angular
     'ui.bootstrap',
     'bw.paging'
   ]);
-
-    app.run(["$rootScope" , function($rootScope ){
-
-      //$rootScope.globalShow = false;
-
-    }]);
 
   app.config([ "$stateProvider", "$locationProvider", "$urlRouterProvider", "$httpProvider", "noCAPTCHAProvider", function ( $stateProvider, $locationProvider, $urlRouterProvider, $httpProvider, noCaptchaProvider) {
 

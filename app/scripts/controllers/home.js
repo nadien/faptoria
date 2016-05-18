@@ -12,7 +12,6 @@ angular.module('faptoriaApp')
 	var token =  window.localStorage['fd4deef86e4149be2649a12aac29484a'];
   var ruta = (window.location.hash).split("/") ;
 
-
   $http.post('/api/getPhotos' , {})
             .success(function(data , headers ){
                  // $scope.images = data;
