@@ -13,7 +13,8 @@ var app = angular
     'toaster',
     'noCAPTCHA',
     'ui.bootstrap',
-    'bw.paging'
+    'bw.paging',
+    '720kb.socialshare'
   ]);
 
   app.config([ "$stateProvider", "$locationProvider", "$urlRouterProvider", "$httpProvider", "noCAPTCHAProvider", function ( $stateProvider, $locationProvider, $urlRouterProvider, $httpProvider, noCaptchaProvider) {
