@@ -18,6 +18,7 @@ var sidebar = require('./app/scripts/middleware/Sidebar');
     //..localhost/[name] <-- indica la base de datos a usar en mongdb
     mongoose.connect('mongodb://localhost/faptoriaMujeres');
 
+    app.use(require('express-html-snapshots').middleware);
     app.use(morgan('dev'));
     app.use(bodyParser.urlencoded({'extended':'true'}));            // parse application/x-www-form-urlencoded
     app.use(bodyParser.json());                                     // parse application/json

@@ -36,6 +36,7 @@
     "body-parser": "^1.15.0",
     "cors": "^2.7.1",
     "express": "^4.13.4",
+    "express-html-snapshots": "^1.1.1",
     "fs": "0.0.2",
     "jsonwebtoken": "^5.7.0",
     "mongojs": "^2.3.0",
