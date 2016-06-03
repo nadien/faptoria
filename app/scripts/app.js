@@ -21,6 +21,8 @@ var app = angular
 
     noCaptchaProvider.setSiteKey('6LdSECATAAAAAAHr8wh0VEJP3K2S9zZfDPs5Nw4j');
     noCaptchaProvider.setTheme('dark');
+//    $locationProvider.hashPrefix('!');
+  $locationProvider.html5Mode(true).hashPrefix('!');
 
     $urlRouterProvider.otherwise("/");
     const token = window.localStorage['fd4deef86e4149be2649a12aac29484a'];

@@ -9,10 +9,11 @@
  */
 angular.module('faptoriaApp')
   .controller('BoardCtrl', function ($http , $scope, toaster) {
-  	var ruta = (window.location.hash).split("/") ;
+  //	var ruta = (window.location.hash).split("/") ;
+  var ruta = window.location.href.split('/')[4];
     var token =  window.localStorage['fd4deef86e4149be2649a12aac29484a'];
 
-		$http.post('/api/getPhoto/' + ruta[2], {})
+		$http.post('/api/getPhoto/' + ruta, {})
             .success(function(data , headers ){
 
               $scope.image = data;

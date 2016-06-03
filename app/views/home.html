@@ -14,7 +14,7 @@
           <!-- imagenes -->
    <div class="col-sm-12 col-md-12" ng-repeat="(key ,img) in images |  orderBy: '$index':true | limitTo: 10 "  ng-if="img.index" width="100%">
      <div class="thumbnail" >
-      <a href="#/tablero/{{img._id}}" > <img ng-src="{{img.path}}" alt="{{img.title}}"></a>
+      <a href="/tablero/{{img._id}}" > <img ng-src="{{img.path}}" alt="{{img.title}}"></a>
        <div class="caption ">
           <center><h4> {{img.title}} </h4></center>
          <hr/>
@@ -41,7 +41,7 @@
           socialshare-provider="twitter"
           socialshare-text="Faptoría - placer erótico"
           socialshare-hashtags="faptoría , chicas desnudas"
-          socialshare-url="http://chicas.faptoria.org/#/tablero/{{img._id}}">
+          socialshare-url="http://chicas.faptoria.org/tablero/{{img._id}}">
         </a>
 
         <a class="fa fa-facebook-official fa-2x"  style="color:blue"
@@ -49,7 +49,7 @@
         socialshare-provider="facebook"
         socialshare-text="Faptoría - placer erótico"
         socialshare-hashtags="faptoría , chicas desnudas"
-        socialshare-url="http://chicas.faptoria.org/#/tablero/{{img._id}}">
+        socialshare-url="http://chicas.faptoria.org/tablero/{{img._id}}">
         </a>
 
         <a class="fa fa-google-plus-official fa-2x"  style="color:red"
@@ -57,7 +57,7 @@
         socialshare-provider="google"
         socialshare-text="Faptoría - placer erótico"
          socialshare-hashtags="faptoría , chicas desnudas"
-        socialshare-url="http://chicas.faptoria.org/#/tablero/{{img._id}}" aria-hidden="true">
+        socialshare-url="http://chicas.faptoria.org/tablero/{{img._id}}" aria-hidden="true">
         </a>
 
         <a class="fa fa-tumblr fa-2x"  style="color:#285674"
@@ -65,7 +65,7 @@
         socialshare-provider="tumblr"
         socialshare-text="Faptoría - placer erótico"
         socialshare-hashtags="faptoría , chicas desnudas"
-        socialshare-url="http://chicas.faptoria.org/#/tablero/{{img._id}}" 
+        socialshare-url="http://chicas.faptoria.org/tablero/{{img._id}}" 
         aria-hidden="true">
         </a>
 
@@ -74,7 +74,7 @@
         socialshare-provider="stumbleupon"
         socialshare-text="Faptoría - placer erótico"
         socialshare-hashtags="faptoría , chicas desnudas"
-        socialshare-url="http://chicas.faptoria.org/#/tablero/{{img._id}}" 
+        socialshare-url="http://chicas.faptoria.org/tablero/{{img._id}}" 
          aria-hidden="true">
         </a>
 
@@ -83,7 +83,7 @@
         socialshare-provider="pinterest"
         socialshare-text="Faptoría - placer erótico"
         socialshare-hashtags="faptoría , chicas desnudas"
-        socialshare-url="http://chicas.faptoria.org/#/tablero/{{img._id}}" 
+        socialshare-url="http://chicas.faptoria.org/tablero/{{img._id}}" 
          aria-hidden="true">
         </a>
 
@@ -92,7 +92,7 @@
         socialshare-provider="whatsapp"
         socialshare-text="Faptoría - placer erótico"
         socialshare-hashtags="faptoría , chicas desnudas"
-        socialshare-url="http://chicas.faptoria.org/#/tablero/{{img._id}}" 
+        socialshare-url="http://chicas.faptoria.org/tablero/{{img._id}}" 
          aria-hidden="true">
         </a>
 
@@ -100,15 +100,29 @@
       
        </div>
      </div>
-
      <hr>
-     <script type="text/javascript">
-var ad_idzone = "1834562",
+
+     <div class="visible-xs visible-sm">
+ <script type="text/javascript">
+var ad_idzone = "2062893",
    ad_width = "300",
-   ad_height = "250";
+   ad_height = "100";
 </script>
 <script type="text/javascript" src="https://ads.exoclick.com/ads.js"></script>
-<noscript><a href="http://main.exoclick.com/img-click.php?idzone=1834562" target="_blank"><img src="https://syndication.exoclick.com/ads-iframe-display.php?idzone=1834562&output=img&type=300x250" width="300" height="250"></a></noscript>
+<noscript><a href="http://main.exoclick.com/img-click.php?idzone=2062893" target="_blank"><img src="https://syndication.exoclick.com/ads-iframe-display.php?idzone=2062893&output=img&type=300x100" width="300" height="100"></a></noscript>
+</div>
+
+<div class="hidden-xs hidden-sm">
+<script type="text/javascript">
+var ad_idzone = "1834570",
+   ad_width = "728",
+   ad_height = "90";
+</script>
+<script type="text/javascript" src="https://ads.exoclick.com/ads.js"></script>
+<noscript><a href="http://main.exoclick.com/img-click.php?idzone=1834570" target="_blank"><img src="https://syndication.exoclick.com/ads-iframe-display.php?idzone=1834570&output=img&type=728x90" width="728" height="90"></a></noscript>
+</div>
+
+
 <div class="modal fade" id="modalIndex" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -135,7 +149,7 @@ var ad_idzone = "1834562",
       page="currentPage" 
       page-size="10" 
       total="total"
-      pg-href="/#/page/{page}"
+      pg-href="/page/{page}"
       paging-action="DoCtrlPagingAct('Paging Clicked', page, pageSize, total)">
     </div> 
 

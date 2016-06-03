@@ -10,14 +10,15 @@
 angular.module('faptoriaApp')
   .controller('homeController', function ($scope, $rootScope ,$http, toaster) {
 	var token =  window.localStorage['fd4deef86e4149be2649a12aac29484a'];
-  var ruta = (window.location.hash).split("/") ;
+  //var ruta = (window.location.hash).split("/") ;
+    var ruta = window.location.href.split('/')[4];
 
   $http.post('/api/getPhotos' , {})
             .success(function(data , headers ){
                  // $scope.images = data;
                     
                     $scope.total = data.length;
-                    $scope.currentPage = ruta[2]
+                    $scope.currentPage = ruta
                     ,$scope.numPerPage = 10
                     ,$scope.maxSize = 10;
 
@@ -26,10 +27,10 @@ angular.module('faptoriaApp')
                 $scope.mensaje = "falló la llamada al servidor";
               });
 
-if(ruta[2] == undefined)
-  ruta[2] = 1;
+if(ruta == undefined)
+  ruta = 1;
 
- $http.post('/api/getPhotos/page/' + ruta[2] , {})
+ $http.post('/api/getPhotos/page/' + ruta , {})
             .success(function(data , headers ){
                   $scope.images = data;
              })
