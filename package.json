@@ -43,6 +43,7 @@
     "mongoose": "^4.4.5",
     "morgan": "^1.7.0",
     "multer": "^1.1.0",
+    "node-phantom": "^0.2.5",
     "prerender-node": "^2.3.0",
     "request-ip": "^1.2.2"
   }
