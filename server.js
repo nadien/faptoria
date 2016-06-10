@@ -15,6 +15,7 @@ var getToken = require('./app/scripts/middleware/getRole');
 var uploadImg = require('./app/scripts/middleware/Upload');
 var sidebar = require('./app/scripts/middleware/Sidebar');
 var phantom = require('node-phantom');
+var htmlSnapshots = require('html-snapshots');
     //..localhost/[name] <-- indica la base de datos a usar en mongdb
     mongoose.connect('mongodb://localhost/faptoriaMujeres');
 
@@ -26,7 +27,13 @@ var phantom = require('node-phantom');
     app.use(express.static(__dirname + '/app'));
     app.use('/bower_components',  express.static(__dirname + '/bower_components'));
 
-   
+    var result = htmlSnapshots.run({
+    source: "./robots.txt",
+    hostname: "hicas.faptoria.org",
+    outputDir: "./snapshots",
+    outputDirClean: true,
+    selector: "#dynamic-content"
+    });
 
 //Iniciando el servidor de imagenes con Multer
     app.get('/uploads/:id' , function(req , res){
