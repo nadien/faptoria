@@ -13,6 +13,8 @@ angular.module('faptoriaApp')
   //var ruta = (window.location.hash).split("/") ;
     var ruta = window.location.href.split('/')[4];
 
+ //http://puppygifs.tumblr.com/api/read/json
+
   $http.post('/api/getPhotos' , {})
             .success(function(data , headers ){
                  // $scope.images = data;

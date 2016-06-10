@@ -16,7 +16,7 @@ angular.module('faptoriaApp')
         //  $scope.message = data;
         //  alert(headers)
           if(data.userData._doc.role <= 2)
-          window.location.href = "#/admin/dashboard";
+          window.location.href = "/admin/dashboard";
         else if(data.userData._doc.role >= 3){
           window.location.href = "#/";
         }

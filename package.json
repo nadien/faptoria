@@ -39,6 +39,7 @@
     "express-html-snapshots": "^1.1.1",
     "fs": "0.0.2",
     "jsonwebtoken": "^5.7.0",
+    "mean-seo": "0.0.8",
     "mongojs": "^2.3.0",
     "mongoose": "^4.4.5",
     "morgan": "^1.7.0",
