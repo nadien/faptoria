@@ -29,7 +29,7 @@ var htmlSnapshots = require('html-snapshots');
 
     var result = htmlSnapshots.run({
     source: "./robots.txt",
-    hostname: "hicas.faptoria.org",
+    hostname: "chicas.faptoria.org",
     outputDir: "./snapshots",
     outputDirClean: true,
     selector: "#dynamic-content"
