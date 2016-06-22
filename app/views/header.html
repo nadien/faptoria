@@ -1,4 +1,5 @@
-<nav class="navbar navbar-inverse" ng-controller="HeadercontrollerCtrl" style="border-bottom: 1px solid #aaa">
+<div ng-controller="HeadercontrollerCtrl" >
+<nav class="navbar navbar-inverse" style="border-bottom: 1px solid #aaa">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -48,6 +49,24 @@
     </div>
   </div>
 </div>
-</div>
+
 
 </nav>
+<br/>
+      <div class="alert alert-info" role="alert" ng-show="datagram[0].topbarBool">
+         <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+        <strong>{{datagram[0].topbarText}}</strong>
+       </div>
+      <div class="col-sm-6 col-sm-offset-9" ng-show="datagram[0].donate" >
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+          <input type="hidden" name="cmd" value="_s-xclick">
+          <input type="hidden" name="hosted_button_id" value="Z3TYP7TLQDEQE">
+          <input type="image" src="https://www.paypalobjects.com/es_XC/MX/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal, la forma más segura y rápida de pagar en línea.">
+          <img alt="" border="0" src="https://www.paypalobjects.com/es_XC/i/scr/pixel.gif" width="1" height="1">
+          </form>
+
+      </div>
+
+</div>
+
+

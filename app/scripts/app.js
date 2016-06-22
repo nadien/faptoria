@@ -14,7 +14,8 @@ var app = angular
     'noCAPTCHA',
     'ui.bootstrap',
     'bw.paging',
-    '720kb.socialshare'
+    '720kb.socialshare',
+    'ngProgress'
   ]);
 
   app.config([ "$stateProvider", "$locationProvider", "$urlRouterProvider", "$httpProvider", "noCAPTCHAProvider", function ( $stateProvider, $locationProvider, $urlRouterProvider, $httpProvider, noCaptchaProvider) {
@@ -208,3 +209,15 @@ var app = angular
     }
 
 }]);
+
+
+app.controller('indexController' , function($scope, ngProgressFactory){
+   var ngProgress =  ngProgressFactory.createInstance();
+   ngProgress.setColor('#0DEEE7');
+    ngProgress.start();
+
+    window.onload = function(){
+    ngProgress.complete();
+    }
+
+});

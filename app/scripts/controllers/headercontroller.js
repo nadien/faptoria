@@ -8,7 +8,7 @@
  * Controller of the faptoriaApp
  */
 angular.module('faptoriaApp')
-  .controller('HeadercontrollerCtrl', function ($scope, $rootScope) {
+  .controller('HeadercontrollerCtrl', function ($scope, $rootScope, $http) {
   $rootScope.nombres = window.localStorage['nombre'];
       if(window.localStorage['fd4deef86e4149be2649a12aac29484a']){
           $scope.signOrLog = "Perfil"
@@ -23,4 +23,13 @@ angular.module('faptoriaApp')
       window.location.href = "/";
       window.location.reload();
     }
+
+    $http.post('/api/configRes', {})
+    .success(function(data){
+      $scope.datagram = data;
+    })
+    .error(function(error){
+      $scope.message = error;
+    });
+
 });

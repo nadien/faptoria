@@ -22,9 +22,24 @@
      <!-- endbuild -->
   
   </head>
-  <body>
-    <script type="text/javascript" src="http://syndication.exoclick.com/splash.php?idzone=2037783&type=3"></script>
-    <script type="text/javascript" src="http://syndication.exoclick.com/splash.php?idzone=2043315&type=1"></script>
+  <body ng-controller="indexController">
+     <script type="text/javascript" src="http://syndication.exoclick.com/splash.php?idzone=1834606&type=3"></script>
+
+<script type="text/javascript">
+var ad_idzone = "1834612",
+    ad_width = "468",
+    ad_height = "60",
+    v_pos = "bottom",
+    h_pos = "center",
+    eventMethod = window.addEventListener ? "addEventListener" : "attachEvent",
+    eventer = window[eventMethod],
+    messageEvent = (eventMethod == "attachEvent") ? "onmessage" : "message";
+
+    eventer(messageEvent, (function(ad_idzone){
+        return function(e) { if (e.data == "show-iframe-" + ad_idzone) document.getElementById("sticky-banner-" + ad_idzone).style.display = ""; };
+    })(ad_idzone), false);
+</script>
+<script type="text/javascript" src="https://ads.exoclick.com/js.php?t=17&idzone=1834612"></script>
 
     <toaster-container toaster-options="{'close-button': true,  'animation-class': 'toast-top-center'}" ></toaster-container>
     <!--[if lte IE 8]>
@@ -136,7 +151,8 @@
         <script src="scripts/controllers/dashboard.js",></script>
         <script src="scripts/controllers/headercontroller.js"></script>
         <script src="scripts/controllers/sidebar.js"></script>
-
+        <script src="bower_components/ngprogress/build/ngprogress.js"></script>
+        <link rel="stylesheet" href="bower_components/ngprogress/ngProgress.css">
         <!-- endbuild -->
 
 </body>
