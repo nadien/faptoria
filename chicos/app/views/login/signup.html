@@ -1,0 +1,21 @@
+
+
+    <div class="container">
+       <h4> {{message}} </h4> 
+      <form class="form-signin" ng-submit="signup()">
+        <h2 class="form-signin-heading">Registro</h2>
+        <label for="inputEmail" class="sr-only">Email</label>
+        <input type="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus ng-model="formSignup.email">
+        <label for="inputEmail" class="sr-only">Nick</label>
+        <input type="text" id="inputEmail" class="form-control" placeholder="Nick" required autofocus ng-model="formSignup.nick">
+        <label for="inputPassword" class="sr-only">Contraseña</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required ng-model="formSignup.password">
+        <div class="checkbox">
+          <center>  <no-captcha g-recaptcha-response="gRecaptchaResponse" control="noCaptchaControl"> </no-captcha> </center> 
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Registrarse</button>
+      </form>
+
+    </div> <!-- /container -->
+<br/>
+

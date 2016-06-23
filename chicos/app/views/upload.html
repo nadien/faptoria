@@ -1,0 +1,60 @@
+<div id="upload" class="row">
+           <div class="col-sm-8 col-sm-offset-4 text-center">
+                   <div class="form-group">
+
+                       <!-- BIND THIS VALUE TO formData.text IN ANGULAR action="/api/upload"-->
+                       <p> <h2> Subir imagen </h2></p>
+                         {{message}}
+                          <br>
+               
+<form ng-show="value" enctype='multipart/form-data'  action="/api/upload" method="post">
+  <fieldset class="form-group">
+    <label >Título</label>
+    <input type="text" class="form-control" name='title' ng-model="formImg.titulo" placeholder="Se original.." maxlength="20">
+    <small class="text-muted">20 caracteres máximo</small>
+  </fieldset>
+  <fieldset class="form-group">
+    <label >Etiquetas</label>
+    <input type="text" class="form-control"  name='tags' ng-model="formImg.tags" placeholder="sexy, desnuda" required>
+  </fieldset> 
+  <small class="text-muted">Puedes separarlas por comas</small>
+
+
+<input type='text' name='idImage' ng-model="formImg.BoxId" style="display: none">
+  <br/>
+  <fieldset class="form-group">
+      <br/>
+    <label >Archivo</label>
+    <input type='file' name='userPhoto' accept=".png, .jpg, .jpeg , .gif" data-max-size="4096" required>
+    <small class="text-muted">Limite de imagen 4 MB.</small>
+  </fieldset>
+ 
+  <button type="submit" class="btn btn-danger">Subir imagen</button>
+</form>
+
+                 </div>
+           </div>
+       </div>
+
+
+
+<!--
+<form action="/api/upload" method="post" name="upload_form" >
+               Single Image with validations
+           <input
+              type="file"
+              ngf-select
+              ng-model="file"
+              name="file"
+              ngf-pattern="'image/*'"
+              accept="image/*"
+              ngf-max-size="20MB"
+              />
+           Image thumbnail: <img style="width:100px;" ngf-thumbnail="file || '/thumb.jpg'"/>
+           <i ng-show="up.upload_form.file.$error.required">*required</i><br>
+           <i ng-show="up.upload_form.file.$error.maxSize">File too large
+           {{file.size / 1000000|number:1}}MB: max 20M</i>
+           <button type="submit" >submit</button>
+           <p>{{progress}}</p>
+       </form>
+-->

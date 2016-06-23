@@ -1,0 +1,116 @@
+<div class="container" >
+
+     <div class="row">
+       <div class="col-sm-8 blog-main">
+         <div class="row">
+          <!-- imagenes -->
+   <div class="col-sm-6 col-md-12">
+     <div class="thumbnail">
+     <img src="{{image.path}}" alt="...">
+       <div class="caption">
+         <center>
+         <button ng-click="votarPos(image._id)" ng-disabled="disablePos" class="glyphicon glyphicon-thumbs-up gi-2x buttonVotes" style="color:green">{{image.votes.positives }}</button>
+          &nbsp <button ng-click="votarNeg(image._id)" ng-disabled="disableNeg" class="glyphicon glyphicon-thumbs-down gi-2x buttonVotes" style="color:red" >{{image.votes.negatives }}</button>
+         </center>
+         <hr/>
+         <div class="row">
+        <input ng-click="delete(image._id)" value="Eliminar imagen" class="btn btn-danger pull-right" ng-show="value">
+      </div>
+   
+         <p>Tags: </p>  
+         <ol class="breadcrumb">
+            <li>{{image.tags}}</li>
+         </ol> 
+  
+   <center>
+      
+        <a class="fa fa-twitter fa-2x social-fap" style="color:#0D9AE1"
+          socialshare
+          socialshare-provider="twitter"
+          socialshare-text="Faptoría - placer erótico"
+          socialshare-hashtags="faptoría , chicas desnudas"
+          socialshare-url="http://chicas.faptoria.org/tablero/{{image._id}}">
+        </a>
+
+        <a class="fa fa-facebook-official fa-2x"  style="color:blue"
+        socialshare
+        socialshare-provider="facebook"
+        socialshare-text="Faptoría - placer erótico"
+        socialshare-hashtags="faptoría , chicas desnudas"
+        socialshare-url="http://chicas.faptoria.org/tablero/{{image._id}}">
+        </a>
+
+        <a class="fa fa-google-plus-official fa-2x"  style="color:red"
+        socialshare
+        socialshare-provider="google"
+        socialshare-text="Faptoría - placer erótico"
+         socialshare-hashtags="faptoría , chicas desnudas"
+        socialshare-url="http://chicas.faptoria.org/tablero/{{image._id}}" aria-hidden="true">
+        </a>
+
+        <a class="fa fa-tumblr fa-2x"  style="color:#285674"
+        socialshare
+        socialshare-provider="tumblr"
+        socialshare-text="Faptoría - placer erótico"
+        socialshare-hashtags="faptoría , chicas desnudas"
+        socialshare-url="http://chicas.faptoria.org/tablero/{{image._id}}" 
+        aria-hidden="true">
+        </a>
+
+        <a class="fa fa-stumbleupon fa-2x" style="color:#E1730D"
+        socialshare
+        socialshare-provider="stumbleupon"
+        socialshare-text="Faptoría - placer erótico"
+        socialshare-hashtags="faptoría , chicas desnudas"
+        socialshare-url="http://chicas.faptoria.org/tablero/{{image._id}}" 
+         aria-hidden="true">
+        </a>
+
+        <a class="fa fa-pinterest-p fa-2x" style="color:red"
+        socialshare
+        socialshare-provider="pinterest"
+        socialshare-text="Faptoría - placer erótico"
+        socialshare-hashtags="faptoría , chicas desnudas"
+        socialshare-url="http://chicas.faptoria.org/tablero/{{image._id}}" 
+         aria-hidden="true">
+        </a>
+
+        <a class="fa fa-whatsapp fa-2x" style="color:green"
+        socialshare
+        socialshare-provider="whatsapp"
+        socialshare-text="Faptoría - placer erótico"
+        socialshare-hashtags="faptoría , chicas desnudas"
+        socialshare-url="http://chicas.faptoria.org/tablero/{{image._id}}" 
+         aria-hidden="true">
+        </a>
+
+    </center>
+      <hr>
+     <center>
+            <div class="sidebar-module sidebar-module-inset" ng-repeat="ad in ads">
+             <div ng-bind-html="ad.content"></div>
+            </div>
+      </center>
+
+       </div>
+     </div>
+
+   </div>
+ </div>
+
+ <script type="text/javascript">
+ var ad_idzone = "2062893",
+          ad_width = "300",
+          ad_height = "100";
+ </script>
+ <script type="text/javascript" src="https://ads.exoclick.com/ads.js"></script>
+ <noscript><a href="http://main.exoclick.com/img-click.php?idzone=2062893" target="_blank"><img src="https://syndication.exoclick.com/a$
+ <script type="text/javascript" src="http://syndication.exoclick.com/splash.php?idzone=1834618&type=11"></script>
+
+
+ 
+       </div><!-- /.blog-main -->
+
+     </div><!-- /.row -->
+
+   </div><!-- /.container -->
