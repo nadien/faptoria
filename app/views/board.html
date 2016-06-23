@@ -85,10 +85,12 @@
         </a>
 
     </center>
-
-    <div class="visible-xs visible-sm">
-    
-     </div>
+      <hr>
+     <center>
+            <div class="sidebar-module sidebar-module-inset" ng-repeat="ad in ads">
+             <div ng-bind-html="ad.content"></div>
+            </div>
+      </center>
 
        </div>
      </div>

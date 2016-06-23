@@ -15,6 +15,8 @@ var getToken = require('./app/scripts/middleware/getRole');
 var uploadImg = require('./app/scripts/middleware/Upload');
 var sidebar = require('./app/scripts/middleware/Sidebar');
 var settings = require('./app/scripts/middleware/Config');
+var ads = require('./app/scripts/middleware/Ads');
+
 var phantom = require('node-phantom');
 var htmlSnapshots = require('html-snapshots');
     //..localhost/[name] <-- indica la base de datos a usar en mongdb
@@ -46,6 +48,7 @@ app.use(getToken);
 app.use(uploadImg);
 app.use(sidebar);
 app.use(settings);
+app.use(ads);
 
 
  app.all('/*', function(req, res, next) {

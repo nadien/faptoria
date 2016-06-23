@@ -28,6 +28,20 @@ angular.module('faptoriaApp')
                 $scope.mensaje = "falló la llamada al servidor";
               });
 
+
+   $http.post('/api/getAds' , {})
+          .success(function(data , headers ){
+                 // $scope.images = data;
+                    
+                $scope.ads = data;
+
+              })
+            .error(function(data){
+                $scope.mensaje = "falló la llamada al servidor";
+              });
+
+
+
 if(ruta == undefined)
   ruta = 1;
 
@@ -130,24 +144,24 @@ $scope.DoCtrlPagingAct = function(text, page, pageSize, total) {
                 $scope.disablePos[key] = true;
                  }
                
-         })
-         .error(function(data){
-           toaster.pop('error', "Error", "Falló la llamada al servidor");
-         });
-      }
+               })
+               .error(function(data){
+                 toaster.pop('error', "Error", "Falló la llamada al servidor");
+               });
+            }
 
-  }else {
-  $scope.votarPos = function(){
-    toaster.pop('error', "Error", "Necesitas registrarte para votar");
-        $scope.disableButtons = true;
-       
-  }
-  $scope.votarNeg = function(){
-    toaster.pop('error', "Error", "Necesitas registrarte para votar");
-        $scope.disableButtons = true;
-     
-  }
-}
+        }else {
+        $scope.votarPos = function(){
+          toaster.pop('error', "Error", "Necesitas registrarte para votar");
+              $scope.disableButtons = true;
+             
+        }
+        $scope.votarNeg = function(){
+          toaster.pop('error', "Error", "Necesitas registrarte para votar");
+              $scope.disableButtons = true;
+           
+        }
+    }
             
 
                 $scope.delete = function(id){

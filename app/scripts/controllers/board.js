@@ -23,6 +23,17 @@ angular.module('faptoriaApp')
                 $scope.mensaje = "falló la llamada al servidor";
               });
 
+    $http.post('/api/getAds' , {})
+          .success(function(data , headers ){
+                 // $scope.images = data;
+                    
+                $scope.ads = data;
+
+              })
+            .error(function(data){
+                $scope.mensaje = "falló la llamada al servidor";
+              });
+
    
 if(token){
     $http.post('/api/getRole' , {})

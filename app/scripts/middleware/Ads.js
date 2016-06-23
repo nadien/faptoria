@@ -11,15 +11,15 @@ var requestIp = require('request-ip');
    
     module.exports = app;
 
-var Sidebar = mongoose.model( 'Sidebar' ,{
+var ads = mongoose.model( 'ads' ,{
 	title : String , 
 	content : String
 }); 
 
 
-var apiSidebar =  express.Router();
+var apiAds =  express.Router();
 
-apiSidebar.use(function(req, res, next) {
+apiAds.use(function(req, res, next) {
 
   var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
@@ -49,32 +49,32 @@ apiSidebar.use(function(req, res, next) {
   }
 });
 
+app.post('/api/addAd',apiAds ,function(req, res){
+    console.log(req.body);
+    ads.findOne({
+        title : req.body.title
+    } , function(err , ad){
+        if(err) res.send(err);
+        
+            if(ad == null ){
+                ads.create({
+                    title : req.body.title,
+                    content : req.body.content
+                }, function(err , Ad){
+                    if(err) res.send(err);
 
-app.post('/api/sidebar' , apiSidebar, function(req , res){
-
-	Sidebar.findOne({
-		title : req.body.title
-	} , function(err , articles){
-		if(err) res.send(err);
-		
-			if(articles == null ){
-				Sidebar.create({
-					title : req.body.title,
-					content : req.body.content
-				}, function(err , article){
-					if(err) res.send(err);
-
-					res.json(article);
-				});
-			}else{
-				res.json({ success : false , message : "Este título ya existe."});
-			}
-		
-	});
+                    res.json(Ad);
+                });
+            }else{
+                ads.update({ title : req.body.title , content : req.body.content}, function(err , a){ if(err)throw err; res.json({succes : true , message : "Agregado con éxito" }) })
+            }
+        
+    });
 });
 
-app.post('/api/getArticles' , function(req , res){
-	Sidebar.find().lean().exec( function(err , user){
+
+app.post('/api/getAds' , function(req , res){
+    ads.find().lean().exec( function(err , user){
           if(err)throw err;
 
         //  res.end(user);
