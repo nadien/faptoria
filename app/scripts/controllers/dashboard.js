@@ -38,8 +38,9 @@ angular.module('faptoriaApp')
            });
       };
 
-        $scope.addAd = function(cont){
-         $http.post('api/addAd' , { title: "" , content : cont})
+
+        $scope.addAdWeb = function(cont){
+         $http.post('api/addAd' , { title: "web" , content : cont})
           .success(function(data){
               toaster.pop('note', "Éxito", "Anuncio agregador correctamente");
            })
@@ -48,6 +49,15 @@ angular.module('faptoriaApp')
            });
       };
 
+      $scope.addAdMob = function(cont){
+         $http.post('api/addAd' , { title: "mobile" , content : cont})
+          .success(function(data){
+              toaster.pop('note', "Éxito", "Anuncio agregador correctamente");
+           })
+           .error(function(data){
+            $scope.message = "falló la llamada al servidor";
+           });
+      };
 
       $scope.addText = function(text){
         $http.post('/api/config' , {conf :  "topbarText", topText : text})

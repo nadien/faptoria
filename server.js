@@ -16,6 +16,7 @@ var uploadImg = require('./app/scripts/middleware/Upload');
 var sidebar = require('./app/scripts/middleware/Sidebar');
 var settings = require('./app/scripts/middleware/Config');
 var ads = require('./app/scripts/middleware/Ads');
+var htmlSnapshots = require("html-snapshots");
 
 var phantom = require('node-phantom');
 var htmlSnapshots = require('html-snapshots');
@@ -30,14 +31,27 @@ var htmlSnapshots = require('html-snapshots');
     app.use(express.static(__dirname + '/app'));
     app.use('/bower_components',  express.static(__dirname + '/bower_components'));
 
-    var result = htmlSnapshots.run({
-    source: "./robots.txt",
-    hostname: "chicas.faptoria.org",
-    outputDir: "./snapshots",
-    outputDirClean: true,
-    selector: "#dynamic-content"
-    });
 
+ 
+    htmlSnapshots.run({
+      input: "sitemap",
+      source: "http://localhost:9999/sitemap.xml",
+      outputDir: (__dirname + "./tmp"),
+      outputDirClean: true,
+      selector: "#dynamic-content",
+      snapshotScript: {
+        script: "customFilter",
+        module: (__dirname + "/myFilter.js")
+      },
+      timeout: 15000
+    }, function(err, completed) {  
+
+      console.log("completed snapshots:");
+      //console.log(util.inspect(completed));
+
+      // throw if there was an error
+      //assert.ifError(err);
+    });
 //Iniciando el servidor de imagenes con Multer
     app.get('/uploads/:id' , function(req , res){
         res.sendFile(__dirname+'/uploads/' + req.params.id);
@@ -56,43 +70,7 @@ app.use(ads);
       res.sendFile('/app/index.html', { root: __dirname });
 });
 
-app.use(function (request, response, next) {
- 
-    var pageUrl = request.query["_escaped_fragment_"];
- 
-    if (pageUrl !== undefined) {
- 
-        phantom.create(function (err, ph) {
- 
-        return ph.createPage(function (err, page) {
- 
-            var fullUrl = request.protocol + '://' + request.get('host') + pageUrl;
- 
-            return page.open(fullUrl, function (err, status) {
- 
-            page.get('content', function (err, html) {
- 
-                response.statusCode = 200;
- 
-                response.end(html);
- 
-                ph.exit();
- 
-            });
- 
-    });
- 
-});
- 
-});
- 
-} else {
- 
-    next();
- 
-}
- 
-});
+
 
 // ************ All CRUDS methods will have only post *******************
 

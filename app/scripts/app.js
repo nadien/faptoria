@@ -23,8 +23,8 @@ var app = angular
     noCaptchaProvider.setSiteKey('6LdSECATAAAAAAHr8wh0VEJP3K2S9zZfDPs5Nw4j');
     noCaptchaProvider.setTheme('dark');
 //    $locationProvider.hashPrefix('!');
-  $locationProvider.html5Mode(true).hashPrefix('!');
-
+  $locationProvider.html5Mode(true);
+  $locationProvider.hashPrefix('!');
     $urlRouterProvider.otherwise("/");
     const token = window.localStorage['fd4deef86e4149be2649a12aac29484a'];
     $httpProvider.defaults.useXDomain = true;
@@ -153,8 +153,7 @@ var app = angular
         templateUrl : 'views/header.html'
       } ,
       'contenido' : {
-        templateUrl : 'views/contacto.html',
-        controller : 'contactoController'
+        templateUrl : 'views/contacto.html'
       }
     }
   })

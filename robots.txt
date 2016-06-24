@@ -1,3 +1,24 @@
 # chicas.faptoria.org/
 
 User-agent: *
+
+
+Allow: /
+Allow: /2013/08
+Allow: /another-test-post
+Allow: /another-test-post/comment
+Allow: /another-test-post/respond
+Allow: /category/another-category
+Allow: /category/my-test-category
+Allow: /hello-world
+Allow: /hello-world/comment
+Allow: /hello-world/respond
+Allow: /page-two
+Allow: /page-two/comment
+Allow: /page-two/page-two-subpage
+Allow: /page-two/page-two-subpage/comment
+Allow: /page-two/page-two-subpage/respond
+Allow: /page-two/respond
+Allow: /sample-page
+Allow: /sample-page/comment
+Allow: /sample-page/respond
