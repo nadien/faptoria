@@ -17,6 +17,7 @@ var sidebar = require('./app/scripts/middleware/Sidebar');
 var settings = require('./app/scripts/middleware/Config');
 var ads = require('./app/scripts/middleware/Ads');
 var htmlSnapshots = require("html-snapshots");
+var easyimg = require('easyimage');
 
 var phantom = require('node-phantom');
 var htmlSnapshots = require('html-snapshots');
@@ -32,7 +33,7 @@ var htmlSnapshots = require('html-snapshots');
     app.use('/bower_components',  express.static(__dirname + '/bower_components'));
 
 
- 
+ /*
     htmlSnapshots.run({
       input: "sitemap",
       source: "http://localhost:9999/sitemap.xml",
@@ -52,6 +53,7 @@ var htmlSnapshots = require('html-snapshots');
       // throw if there was an error
       //assert.ifError(err);
     });
+*/
 //Iniciando el servidor de imagenes con Multer
     app.get('/uploads/:id' , function(req , res){
         res.sendFile(__dirname+'/uploads/' + req.params.id);

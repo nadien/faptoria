@@ -70,12 +70,12 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
           }
 
 
-if(ruta == undefined)
+if(ruta == undefined || ruta == null)
   ruta = 1;
 
  $http.post('/api/getPhotos/page/' + ruta , {})
             .success(function(data , headers ){
-                  $scope.images = data;
+                  $scope.images = data.reverse();
              })
             .error(function(data){
                 $scope.mensaje = "falló la llamada al servidor";

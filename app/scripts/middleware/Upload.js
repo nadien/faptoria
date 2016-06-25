@@ -6,7 +6,9 @@ var express = require('express'),
     multer = require('multer'),
     jwt = require('jsonwebtoken'),
     util = require('util'),
-    formidable = require('formidable');
+    formidable = require('formidable'),
+    easyimg = require('easyimage');
+
     module.exports = app;
 
 
@@ -124,12 +126,30 @@ app.post('/api/upload', upload, function(req,res){
         if(req.file != undefined || req.file != null){
         var imgPath = req.file.path;
 
+
+/*         quality of images for no subscribers
+ var idForNoSusbcribers = imgPath.substr(18);
+
+          easyimg.rescrop({
+               src: imgPath , dst:'./output/'+idForNoSusbcribers,
+               width:500, height:740,
+               x:0, y:0
+            }).then(
+            function(image) {
+               console.log('Resized and cropped: ' + image.width + ' x ' + image.height);
+            },
+            function (err) {
+              console.log(err);
+            }
+          );
+*/
+
          var A = mongoose.model('images', imageSchema);
 
              var a = new A;
             // a.img.data = fs.readFileSync(imgPath);
             //console.log(JSON.stringify(req.body))
-            a.tags = req.body.tags;
+             a.tags = req.body.tags;
              a.title = req.body.title;
              a.path = imgPath;
              a.size = req.file.size;
@@ -138,7 +158,7 @@ app.post('/api/upload', upload, function(req,res){
              a.save(function (err, a) {
                if (err) throw err;
 
-                res.redirect('/#/subir'); 
+                res.redirect('/subir'); 
                /*res.json({
                  success : true,
                imageData : a
@@ -177,7 +197,7 @@ app.post('/api/getPhotos' , function(req , res){
 
 app.post('/api/getPhotos/page/:number' , function(req , res){
 
-  if((q.length - (req.params.number * 10)) >= 0 ){
+   if((q.length - (req.params.number * 10)) >= 0 ){
      A.find()
         .skip(q.length - (req.params.number * 10) )
         .limit(10)
