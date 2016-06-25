@@ -24,12 +24,6 @@ angular.module('faptoriaApp')
       window.location.reload();
     }
 
-    $http.post('/api/configRes', {})
-    .success(function(data){
-      $scope.datagram = data;
-    })
-    .error(function(error){
-      $scope.message = error;
-    });
+   
 
 });

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="faptoriaApp" ng-cloack >
+<html ng-app="faptoriaApp" ng-cloack  ng-controller="indexController">
   <head>
     <meta charset="utf-8" />
     <title >Faptoria</title>
@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="faptoria" />
     <meta name="fragment" content="!">
+    <link rel="alternate" hreflang="es" href="http://chicas.faptoria.org/" />
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- endbuild -->
@@ -20,9 +21,9 @@
     <meta name="google-site-verification" content="DIxV1tjrhsmB1qaMoG88Y7b5cbYWVeJW9_jvJnrZxzE" />
  
      <!-- endbuild -->
-  
+    <div ng-bind-html="adHead"></div>
   </head>
-  <body ng-controller="indexController">
+  <body>
     
 
     <toaster-container toaster-options="{'close-button': true,  'animation-class': 'toast-top-center'}" ></toaster-container>
@@ -35,20 +36,29 @@
     <div ui-view="admin"></div>
 
     <div ui-view="header1"></div>
+     <br>
+       <div class="container">
 
-    <br>
-    <div class="container">
+        <div class="row">
 
-    <div class="row">
-      <br/>
-      
+        <div class="alert alert-info" role="alert" ng-show="datagram[0].topbarBool">
+         <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+        <strong><center><span ng-bind-html="datagram[0].topbarText"></span></center></strong>
+        </div>
+         <div class="col-sm-6 col-sm-offset-9" ng-show="datagram[0].donate" >
+         <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+          <input type="hidden" name="cmd" value="_s-xclick">
+          <input type="hidden" name="hosted_button_id" value="Z3TYP7TLQDEQE">
+          <input type="image" src="https://www.paypalobjects.com/es_XC/MX/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal, la forma más segura y rápida de pagar en línea.">
+          <img alt="" border="0" src="https://www.paypalobjects.com/es_XC/i/scr/pixel.gif" width="1" height="1">
+          </form>
+         </div>
 
-    <div data-ui-view="contenido" class="col-xs-13 col-md-9"></div>
-     
-    <div data-ui-view="sidebar" class="col-xs-3 col-md-1"></div>
-  
-    </div>
-    </div>
+         <br/>
+          <div data-ui-view="contenido" class="col-xs-13 col-md-9"></div>
+          <div data-ui-view="sidebar" class="col-xs-3 col-md-1"></div>
+        </div>
+      </div>
 
 
 

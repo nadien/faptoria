@@ -64,10 +64,10 @@ app.post('/api/sidebar' , apiSidebar, function(req , res){
 				}, function(err , article){
 					if(err) res.send(err);
 
-					res.json(article);
+					res.json({ success : false , message : "Anuncio agregado correctamente."});
 				});
 			}else{
-				res.json({ success : false , message : "Este título ya existe."});
+        Sidebar.update({title: req.body.title , content : req.body.content },function(err, sidead){if(err) throw err; res.json({ success : false , message : "Anuncio modificado correctamente."}) });
 			}
 		
 	});

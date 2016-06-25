@@ -52,7 +52,6 @@ apiAds.use(function(req, res, next) {
 });
 
 app.post('/api/addAd',apiAds ,function(req, res){
-    console.log(req.body);
     ads.findOne({
         title : req.body.title
     } , function(err , ad){
@@ -65,10 +64,18 @@ app.post('/api/addAd',apiAds ,function(req, res){
                 }, function(err , Ad){
                     if(err) res.send(err);
 
-                    res.json(Ad);
+                    res.json({succes : true , message : "Anuncio agregado correctamente" });
                 });
             }else{
-                ads.update({ title : req.body.title , content : req.body.content}, function(err , a){ if(err)throw err; res.json({succes : true , message : "Agregado con éxito" }) })
+              ads.findOneAndUpdate({
+                title : req.body.title
+              }, { $set : { 
+                content : req.body.content } 
+                }, function(err , a){ 
+                  if(err)throw err;
+                  res.json({succes : true , message : "Anuncio modificado correctamente" })
+              });
+                
             }
         
     });

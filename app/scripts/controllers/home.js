@@ -12,7 +12,7 @@ angular.module('faptoriaApp')
 	var token =  window.localStorage['fd4deef86e4149be2649a12aac29484a'];
   //var ruta = (window.location.hash).split("/") ;
     var ruta = window.location.href.split('/')[4];
-  
+    
 
     //For mobiles
     var isMobile = false; //initiate as false
@@ -46,6 +46,9 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
                               else if(data[1].title == "mobile"){
                                $scope.ads = data[1].content;
                               }
+                              else if(data[2].title == "mobile"){
+                               $scope.ads = data[2].content;
+                              }
                         })
                       .error(function(data){
                           $scope.mensaje = "falló la llamada al servidor";
@@ -62,6 +65,9 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
                               else if(data[1].title == "web"){
                                $scope.ads = data[1].content;
                               }
+                              else if(data[2].title == "web"){
+                               $scope.ads = data[2].content;
+                              }
                         })
                       .error(function(data){
                           $scope.mensaje = "falló la llamada al servidor";
@@ -75,7 +81,7 @@ if(ruta == undefined || ruta == null)
 
  $http.post('/api/getPhotos/page/' + ruta , {})
             .success(function(data , headers ){
-                  $scope.images = data.reverse();
+                  $scope.images = data;
              })
             .error(function(data){
                 $scope.mensaje = "falló la llamada al servidor";
@@ -85,7 +91,7 @@ if(ruta == undefined || ruta == null)
 
 $scope.DoCtrlPagingAct = function(text, page, pageSize, total) {
         
-
+$('html,body').scrollTop(0);
   $http.post('/api/getPhotos/page/' + page , {})
             .success(function(data , headers ){
                   $scope.images = data;

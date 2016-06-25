@@ -18,6 +18,51 @@ angular.module('faptoriaApp')
             $scope.mensaje = "falló la llamada al servidor";
       });
 
+    $http.post('/api/getArticles' , {})
+       .success(function(data){
+           $scope.articles = data;
+        })
+       .error(function(data){
+            $scope.message = data;
+      });
+
+    $http.post('/api/getAds' , {})
+        .success(function(data , headers ){
+          if(data[0].title == "mobile"){
+                  $scope.adMobil = data[0].content;
+          }
+           else if(data[1].title == "mobile"){
+                  $scope.adMobil = data[1].content;
+           }
+           else if(data[2].title == "mobile"){
+                  $scope.adMobil = data[2].content;
+           }
+
+          if(data[0].title == "web"){
+                  $scope.adWeb = data[0].content;
+          }
+          else if(data[1].title == "web"){
+                  $scope.adWeb = data[1].content;
+          }
+          else if(data[2].title == "web"){
+                  $scope.adWeb == data[2].content;
+          }
+
+          if(data[0].title == "head"){
+                  $scope.adHead = data[0].content;
+           }
+          else if(data[1].title == "head"){
+                  $scope.adHead = data[1].content;
+          }
+          else if(data[2].title == "head"){
+                  $scope.adHead = data[2].content;
+          }
+        })
+       .error(function(data){
+             $scope.mensaje = "falló la llamada al servidor";
+      });
+
+
       $scope.delete = function(userId){
         $http.delete('/api/delete_user/' + userId , {})
           .success(function(data ){
@@ -28,10 +73,10 @@ angular.module('faptoriaApp')
             });
       };
 
-      $scope.addSidebar = function(){
-       $http.post('api/sidebar' , $scope.formAd)
+      $scope.addSidebar = function(cont){
+       $http.post('api/sidebar' , {title : "sidebar" , content : cont})
           .success(function(data){
-              toaster.pop('note', "Éxito", "Anuncio agregador correctamente");
+              toaster.pop('note', "Éxito", data.message);
            })
            .error(function(data){
             $scope.message = "falló la llamada al servidor";
@@ -39,25 +84,37 @@ angular.module('faptoriaApp')
       };
 
 
-        $scope.addAdWeb = function(cont){
+      $scope.addAdWeb = function(cont){
          $http.post('api/addAd' , { title: "web" , content : cont})
           .success(function(data){
-              toaster.pop('note', "Éxito", "Anuncio agregador correctamente");
+              toaster.pop('note', "Éxito", data.message);
            })
            .error(function(data){
             $scope.message = "falló la llamada al servidor";
            });
       };
 
-      $scope.addAdMob = function(cont){
-         $http.post('api/addAd' , { title: "mobile" , content : cont})
+      $scope.addAdMob = function(content){
+         $http.post('api/addAd' , { title: "mobile" , content : content})
           .success(function(data){
-              toaster.pop('note', "Éxito", "Anuncio agregador correctamente");
+              toaster.pop('note', "Éxito", data.message);
            })
            .error(function(data){
             $scope.message = "falló la llamada al servidor";
            });
       };
+
+
+      $scope.addHead = function(cont){
+       $http.post('api/addAd' , {title : "head" , content : cont})
+          .success(function(data){
+              toaster.pop('note', "Éxito", data.message);
+           })
+           .error(function(data){
+            $scope.message = "falló la llamada al servidor";
+           });
+      };
+
 
       $scope.addText = function(text){
         $http.post('/api/config' , {conf :  "topbarText", topText : text})

@@ -210,7 +210,7 @@ var app = angular
 }]);
 
 
-app.controller('indexController' , function($scope, ngProgressFactory){
+app.controller('indexController' , function($scope, ngProgressFactory, $http){
    var ngProgress =  ngProgressFactory.createInstance();
    ngProgress.setColor('#0DEEE7');
     ngProgress.start();
@@ -218,5 +218,30 @@ app.controller('indexController' , function($scope, ngProgressFactory){
     window.onload = function(){
     ngProgress.complete();
     }
+
+
+     $http.post('/api/configRes', {})
+            .success(function(data){
+                  $scope.datagram = data;
+        })
+            .error(function(error){
+                 $scope.message = error;
+       });
+
+     $http.post('/api/getAds' , {})
+            .success(function(data , headers ){
+                if(data[0].title == "head"){
+                  $scope.adHead = data[0].content;
+                 }
+                else if(data[1].title == "head"){
+                  $scope.adHead = data[1].content;
+                }
+                else if(data[2].title == "head"){
+                  $scope.adHead = data[2].content;
+                }
+            })
+            .error(function(data){
+                $scope.mensaje = "falló la llamada al servidor";
+            });
 
 });

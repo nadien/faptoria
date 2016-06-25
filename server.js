@@ -18,10 +18,10 @@ var settings = require('./app/scripts/middleware/Config');
 var ads = require('./app/scripts/middleware/Ads');
 var htmlSnapshots = require("html-snapshots");
 var easyimg = require('easyimage');
-
 var phantom = require('node-phantom');
 var htmlSnapshots = require('html-snapshots');
-    //..localhost/[name] <-- indica la base de datos a usar en mongdb
+const cache = require('cache-cache');
+
     mongoose.connect('mongodb://localhost/faptoriaMujeres');
 
     app.use(morgan('dev'));
@@ -31,7 +31,7 @@ var htmlSnapshots = require('html-snapshots');
     app.use(cors());
     app.use(express.static(__dirname + '/app'));
     app.use('/bower_components',  express.static(__dirname + '/bower_components'));
-
+    app.use('/app/', express.static(__dirname + '/app/', {maxAge: '60000'}));
 
  /*
     htmlSnapshots.run({
@@ -58,6 +58,10 @@ var htmlSnapshots = require('html-snapshots');
     app.get('/uploads/:id' , function(req , res){
         res.sendFile(__dirname+'/uploads/' + req.params.id);
     });
+//cache
+app.use(cache());
+app.use('/', cache());
+//cache
 
 app.use(login);
 app.use(getToken);
