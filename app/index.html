@@ -21,7 +21,7 @@
     <meta name="google-site-verification" content="DIxV1tjrhsmB1qaMoG88Y7b5cbYWVeJW9_jvJnrZxzE" />
  
      <!-- endbuild -->
-    <div ng-bind-html="adHead"></div>
+    <div bind-html-compile="adHead"></div>
   </head>
   <body>
     
@@ -41,11 +41,11 @@
 
         <div class="row">
 
-        <div class="alert alert-info" role="alert" ng-show="datagram[0].topbarBool">
+        <div class="alert alert-info" role="alert" ng-show="datagram[0].topbarBool" style="overflow:hidden">
          <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
         <strong><center><span ng-bind-html="datagram[0].topbarText"></span></center></strong>
         </div>
-         <div class="col-sm-6 col-sm-offset-9" ng-show="datagram[0].donate" >
+         <div class="col-sm-offset-9" ng-show="datagram[0].donate" style="overflow:hidden">
          <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
           <input type="hidden" name="cmd" value="_s-xclick">
           <input type="hidden" name="hosted_button_id" value="Z3TYP7TLQDEQE">
@@ -59,7 +59,6 @@
           <div data-ui-view="sidebar" class="col-xs-3 col-md-1"></div>
         </div>
       </div>
-
 
 
 
@@ -101,7 +100,6 @@
 
     </script>
 
-    
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -122,6 +120,8 @@
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="bower_components/angular-socialshare/dist/angular-socialshare.min.js"></script>
     <script src="bower_components/ngprogress/build/ngprogress.min.js"></script>
+    <script src="bower_components/angular-bind-html-compile/angular-bind-html-compile.min.js"></script>
+
     <!-- endbower -->
     <!-- endbuild -->
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
@@ -137,7 +137,7 @@
         <script src="scripts/controllers/admin.js"></script>
         <script src="scripts/controllers/login.js"></script>
         <script src="scripts/controllers/board.js"></script>
-        <script src="scripts/controllers/dashboard.js",></script>
+        <script src="scripts/controllers/dashboard.js"></script>
         <script src="scripts/controllers/headercontroller.js"></script>
         <script src="scripts/controllers/sidebar.js"></script>
         <script src="bower_components/ngprogress/build/ngprogress.js"></script>

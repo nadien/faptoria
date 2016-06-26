@@ -3,7 +3,7 @@
   
   <div ng-repeat="article in articles">
     <div class="sidebar-module sidebar-module-inset">
-     <div ng-bind-html="article.content"></div>
+     <div bind-html-compile="article.content"></div>
     </div>
   </div>
 

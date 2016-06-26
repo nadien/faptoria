@@ -14,6 +14,8 @@ angular.module('faptoriaApp')
     var ruta = window.location.href.split('/')[4];
     
 
+    
+
     //For mobiles
     var isMobile = false; //initiate as false
 // device detection

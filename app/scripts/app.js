@@ -15,7 +15,8 @@ var app = angular
     'ui.bootstrap',
     'bw.paging',
     '720kb.socialshare',
-    'ngProgress'
+    'ngProgress',
+    'angular-bind-html-compile'
   ]);
 
   app.config([ "$stateProvider", "$locationProvider", "$urlRouterProvider", "$httpProvider", "noCAPTCHAProvider", function ( $stateProvider, $locationProvider, $urlRouterProvider, $httpProvider, noCaptchaProvider) {
@@ -243,5 +244,6 @@ app.controller('indexController' , function($scope, ngProgressFactory, $http){
             .error(function(data){
                 $scope.mensaje = "falló la llamada al servidor";
             });
+
 
 });
