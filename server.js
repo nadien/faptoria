@@ -22,11 +22,6 @@ var phantom = require('node-phantom');
 var htmlSnapshots = require('html-snapshots');
 const cache = require('cache-cache');
 var connect = require('connect'),
-  crawlme = require('crawlme');
-
-var appCrawl = connect()
-  .use(crawlme())
-  .use(express.static(__dirname + '/webroot'));
 
 http.createServer(appCrawl).listen(3000);
 
