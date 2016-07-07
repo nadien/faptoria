@@ -23,7 +23,6 @@ var app = angular
 
     noCaptchaProvider.setSiteKey('6LdSECATAAAAAAHr8wh0VEJP3K2S9zZfDPs5Nw4j');
     noCaptchaProvider.setTheme('dark');
-//    $locationProvider.hashPrefix('!');
   $locationProvider.html5Mode(true);
   $locationProvider.hashPrefix('!');
     $urlRouterProvider.otherwise("/");
