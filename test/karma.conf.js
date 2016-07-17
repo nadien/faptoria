@@ -40,6 +40,7 @@ module.exports = function(config) {
       'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'bower_components/angular-socialshare/dist/angular-socialshare.min.js',
       'bower_components/ngprogress/build/ngprogress.min.js',
+      'bower_components/angular-bind-html-compile/angular-bind-html-compile.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",

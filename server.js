@@ -16,14 +16,12 @@ var uploadImg = require('./app/scripts/middleware/Upload');
 var sidebar = require('./app/scripts/middleware/Sidebar');
 var settings = require('./app/scripts/middleware/Config');
 var ads = require('./app/scripts/middleware/Ads');
-var htmlSnapshots = require("html-snapshots");
 var easyimg = require('easyimage');
 var phantom = require('node-phantom');
-var htmlSnapshots = require('html-snapshots');
-const cache = require('cache-cache');
-var connect = require('connect'),
+var assert = require("assert");
 
-http.createServer(appCrawl).listen(3000);
+const cache = require('cache-cache');
+
 
 
     mongoose.connect('mongodb://localhost/faptoriaMujeres');
@@ -36,27 +34,10 @@ http.createServer(appCrawl).listen(3000);
     app.use(express.static(__dirname + '/app'));
     app.use('/bower_components',  express.static(__dirname + '/bower_components'));
 
- /*
-    htmlSnapshots.run({
-      input: "sitemap",
-      source: "http://localhost:9999/sitemap.xml",
-      outputDir: (__dirname + "./tmp"),
-      outputDirClean: true,
-      selector: "#dynamic-content",
-      snapshotScript: {
-        script: "customFilter",
-        module: (__dirname + "/myFilter.js")
-      },
-      timeout: 15000
-    }, function(err, completed) {  
 
-      console.log("completed snapshots:");
-      //console.log(util.inspect(completed));
+var seojs = require('express-seojs');
+app.use(seojs('79ji81fcak57i38nh7u1c29hd'));
 
-      // throw if there was an error
-      //assert.ifError(err);
-    });
-*/
 //Iniciando el servidor de imagenes con Multer
     app.get('/uploads/:id' , function(req , res){
         res.sendFile(__dirname+'/uploads/' + req.params.id);
