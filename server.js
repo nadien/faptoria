@@ -36,7 +36,6 @@ const cache = require('cache-cache');
 
 
 var seojs = require('express-seojs');
-app.use(seojs('79ji81fcak57i38nh7u1c29hd'));
 
 //Iniciando el servidor de imagenes con Multer
     app.get('/uploads/:id' , function(req , res){
@@ -46,7 +45,7 @@ app.use(seojs('79ji81fcak57i38nh7u1c29hd'));
 app.use(cache());
 app.use('/', cache());
 //cache
-
+app.use(seojs('79ji81fcak57i38nh7u1c29hd'));
 app.use(login);
 app.use(getToken);
 app.use(uploadImg);
